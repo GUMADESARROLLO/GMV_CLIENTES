@@ -67,13 +67,14 @@ public class ReletedItemAllAdp extends RecyclerView.Adapter<ReletedItemAllAdp.Vi
         } else {
             holder.lvlOutofstock.setVisibility(View.GONE);
         }
-        Glide.with(mContext).load(APIClient.baseUrl + "/" + datum.getProductImage()).thumbnail(Glide.with(mContext).load(R.drawable.lodingimage)).into(holder.imgIcon);
+        Glide.with(mContext).load(datum.getProductImage()).thumbnail(Glide.with(mContext).load(R.drawable.lodingimage)).into(holder.imgIcon);
         holder.txtTitle.setText("" + datum.getProductName());
         if (datum.getmDiscount() > 0) {
             double res = (Double.parseDouble(datum.getPrice().get(0).getProductPrice()) / 100.0f) * datum.getmDiscount();
             res = Integer.parseInt(datum.getPrice().get(0).getProductPrice()) - res;
             holder.priceoofer.setText(sessionManager.getStringData(currncy) + datum.getPrice().get(0).getProductPrice());
             holder.txtPrice.setText(sessionManager.getStringData(currncy)  + new DecimalFormat("##.##").format(res));
+            holder.txtStock.setText(sessionManager.getStringData(currncy)  + datum.getStock());
             holder.lvlOffer.setVisibility(View.VISIBLE);
             holder.txtOffer.setText(datum.getmDiscount() + "% Off");
         } else {
@@ -125,6 +126,8 @@ public class ReletedItemAllAdp extends RecyclerView.Adapter<ReletedItemAllAdp.Vi
         TextView txtOffer;
         @BindView(R.id.price)
         TextView txtPrice;
+        @BindView(R.id.txt_stock)
+        TextView txtStock;
         @BindView(R.id.priceoofer)
         TextView priceoofer;
         @BindView(R.id.lvl_click)

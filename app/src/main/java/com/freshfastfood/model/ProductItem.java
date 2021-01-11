@@ -30,6 +30,10 @@ public class ProductItem implements Parcelable {
     @SerializedName("discount")
     private int mDiscount;
 
+    @SerializedName("bonificado")
+    private String mbonificado;
+
+
     protected ProductItem(Parcel in) {
         mId = in.readString();
         mProductImage = in.readString();
@@ -39,6 +43,15 @@ public class ProductItem implements Parcelable {
         mShortDesc = in.readString();
         mStock = in.readInt();
         mDiscount = in.readInt();
+        mbonificado = in.readString();
+    }
+
+    public String getmbonificado() {
+        return mbonificado;
+    }
+
+    public void setmbonificado(String mBonificado) {
+        this.mbonificado = mBonificado;
     }
 
     public static final Creator<ProductItem> CREATOR = new Creator<ProductItem>() {
@@ -141,5 +154,6 @@ public class ProductItem implements Parcelable {
         dest.writeString(mShortDesc);
         dest.writeInt(mStock);
         dest.writeInt(mDiscount);
+        dest.writeString(mbonificado);
     }
 }

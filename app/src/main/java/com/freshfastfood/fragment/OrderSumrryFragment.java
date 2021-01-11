@@ -71,8 +71,8 @@ public class OrderSumrryFragment extends Fragment implements GetResult.MyListene
     TextView txtSubtotal;
     @BindView(R.id.txt_delivery)
     TextView txtDelivery;
-    @BindView(R.id.txt_delevritital)
-    TextView txtDelevritital;
+    //@BindView(R.id.txt_delevritital)
+    //TextView txtDelevritital;
     @BindView(R.id.txt_total)
     TextView txtTotal;
     @BindView(R.id.btn_cuntinus)
@@ -85,10 +85,10 @@ public class OrderSumrryFragment extends Fragment implements GetResult.MyListene
     TextView txtChangeadress;
     @BindView(R.id.txt_address)
     TextView txtAddress;
-    @BindView(R.id.txt_texo)
+    /*@BindView(R.id.txt_texo)
     TextView txtTexo;
     @BindView(R.id.txt_tex)
-    TextView txtTex;
+    TextView txtTex;*/
     private String time;
     private String data;
     private String payment;
@@ -134,7 +134,7 @@ public class OrderSumrryFragment extends Fragment implements GetResult.MyListene
         myCarts = new ArrayList<>();
         Cursor res = databaseHelper.getAllData();
         if (res.getCount() == 0) {
-            Toast.makeText(getActivity(), "NO DATA FOUND", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "SIN DATOS", Toast.LENGTH_LONG).show();
         }
         while (res.moveToNext()) {
             MyCart rModel = new MyCart();
@@ -146,6 +146,7 @@ public class OrderSumrryFragment extends Fragment implements GetResult.MyListene
             rModel.setCost(res.getString(5));
             rModel.setQty(res.getString(6));
             rModel.setDiscount(res.getInt(7));
+            rModel.setBonifi(res.getString(9));
             myCarts.add(rModel);
         }
         return view;
@@ -170,15 +171,15 @@ public class OrderSumrryFragment extends Fragment implements GetResult.MyListene
         txtSubtotal.setText(sessionManager.getStringData(currncy) + new DecimalFormat("##.##").format(totalAmount[0]));
 
 
-        double tex = Double.parseDouble(sessionManager.getStringData(tax));
+       /* double tex = Double.parseDouble(sessionManager.getStringData(tax));
         txtTexo.setText("Service Tax(" + tex + "%)");
         tex = (totalAmount[0] / 100.0f) * tex;
         txtTex.setText(sessionManager.getStringData(currncy) + new DecimalFormat("##.##").format(tex));
-        totalAmount[0] = totalAmount[0] + tex;
+        totalAmount[0] = totalAmount[0] + tex;*/
 
         if (payment.equalsIgnoreCase(getResources().getString(R.string.pic_myslf))) {
             txtDelivery.setVisibility(View.VISIBLE);
-            txtDelevritital.setVisibility(View.VISIBLE);
+          //  txtDelevritital.setVisibility(View.VISIBLE);
             txtDelivery.setText(sessionManager.getStringData(currncy) + "0");
         } else {
             totalAmount[0] = totalAmount[0] + selectaddress.getDeliveryCharge();
@@ -186,7 +187,7 @@ public class OrderSumrryFragment extends Fragment implements GetResult.MyListene
         }
 
         txtTotal.setText(sessionManager.getStringData(currncy) + new DecimalFormat("##.##").format(totalAmount[0]));
-        btnCuntinus.setText("Place Order - " + sessionManager.getStringData(currncy) + new DecimalFormat("##.##").format(totalAmount[0]));
+        btnCuntinus.setText("TOTAL - " + sessionManager.getStringData(currncy)  + " " + new DecimalFormat("##.##").format(totalAmount[0]));
         total = totalAmount[0];
     }
 
@@ -218,7 +219,7 @@ public class OrderSumrryFragment extends Fragment implements GetResult.MyListene
         @Override
         public void onBindViewHolder(ViewHolder holder, int i) {
             MyCart cart = mData.get(i);
-            Glide.with(getActivity()).load(APIClient.baseUrl + "/" + cart.getImage()).thumbnail(Glide.with(getActivity()).load(R.drawable.lodingimage)).into(holder.imgIcon);
+            Glide.with(getActivity()).load(cart.getImage()).thumbnail(Glide.with(getActivity()).load(R.drawable.lodingimage)).into(holder.imgIcon);
             double res = (Double.parseDouble(cart.getCost()) / 100.0f) * cart.getDiscount();
             res = Double.parseDouble(cart.getCost()) - res;
             holder.txtTitle.setText("" + cart.getTitle());
@@ -228,10 +229,14 @@ public class OrderSumrryFragment extends Fragment implements GetResult.MyListene
             myCart.setTitle(cart.getTitle());
             myCart.setWeight(cart.getWeight());
             myCart.setCost(cart.getCost());
+            myCart.setBonifi(cart.getBonifi());
             int qrt = helper.getCard(myCart.getPid(), myCart.getCost());
-            holder.txtPriceanditem.setText(qrt + " item x " + sessionManager.getStringData(currncy) + new DecimalFormat("##.##").format(res));
+            holder.txtPriceanditem.setText((sessionManager.getStringData(currncy)).concat(new DecimalFormat("##.##").format(res)).concat(" x ").concat(String.valueOf(qrt)));
             double temp = res * qrt;
             holder.txtPrice.setText(sessionManager.getStringData(currncy) + new DecimalFormat("##.##").format(temp));
+
+            holder.idsku.setText(myCart.getPid());
+            holder.idbonificacion.setText(myCart.getBonifi());
 
         }
 
@@ -249,6 +254,10 @@ public class OrderSumrryFragment extends Fragment implements GetResult.MyListene
             TextView txtPriceanditem;
             @BindView(R.id.txt_price)
             TextView txtPrice;
+            @BindView(R.id.id_sku)
+            TextView idsku;
+            @BindView(R.id.id_bonificacion)
+            TextView idbonificacion;
 
             ViewHolder(View itemView) {
                 super(itemView);
@@ -323,13 +332,13 @@ public class OrderSumrryFragment extends Fragment implements GetResult.MyListene
 
 
                     } else {
-                        Toast.makeText(getActivity(), "Please add your address ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Agregue su Dirección", Toast.LENGTH_LONG).show();
 
                         AddressFragment fragment = new AddressFragment();
                         HomeActivity.getInstance().callFragment(fragment);
                     }
                 } else {
-                    Toast.makeText(getActivity(), "Please add your address ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Agregue su Dirección ", Toast.LENGTH_LONG).show();
 
                     AddressFragment fragment = new AddressFragment();
                     HomeActivity.getInstance().callFragment(fragment);
@@ -396,6 +405,7 @@ public class OrderSumrryFragment extends Fragment implements GetResult.MyListene
                     jsonObject.put("weight", res.getString(4));
                     jsonObject.put("cost", res.getString(5));
                     jsonObject.put("qty", res.getString(6));
+                    jsonObject.put("Boni", res.getString(9));
                     jsonArray.put(jsonObject);
 
                 } catch (JSONException e) {

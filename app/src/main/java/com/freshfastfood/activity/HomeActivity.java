@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -400,6 +401,7 @@ public class HomeActivity extends AppCompatActivity {
                     args = new Bundle();
                     args.putInt("id", 0);
                     args.putString("search", edSearch.getText().toString().trim());
+
                     fragment = new ItemListFragment();
                     fragment.setArguments(args);
                     callFragment(fragment);
@@ -411,7 +413,7 @@ public class HomeActivity extends AppCompatActivity {
                 txtActiontitle.setVisibility(View.VISIBLE);
                 rltNoti.setVisibility(View.GONE);
                 rltCart.setVisibility(View.VISIBLE);
-                txtActiontitle.setText("MyCart");
+                txtActiontitle.setText("Mi Carrito");
                 fragment = new CardFragment();
                 callFragment(fragment);
                 break;

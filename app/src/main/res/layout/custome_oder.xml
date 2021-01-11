@@ -2,112 +2,188 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical">
 
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_weight="1"
-        android:elevation="5dp"
-        android:gravity="center">
+        android:layout_height="120dp"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:layout_marginEnd="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_xmedium"
+        app:cardCornerRadius="@dimen/spacing_large"
+        app:cardElevation="0dp">
 
-        <LinearLayout
+        <com.balysv.materialripple.MaterialRippleLayout
+            style="@style/RippleStyleBlack"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/txt_orderid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="5dp"
-                    android:textColor="@color/colorBalck"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_status"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center|right"
-                    android:padding="5dp"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/rectangle_stroke_radius_grey"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/txt_total"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="2"
-                    android:gravity="center|left"
-                    android:padding="5dp"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:id="@+id/lvl_cancel"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    >
-
-                    <TextView
-                        android:id="@+id/txt_ordcancel"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_add"      android:gravity="center"
-                        android:padding="5dp"
-                        android:text=" Cancel "
-                        android:textColor="@color/colorGrey2"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                <View
+                    android:layout_width="13dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/blue_500" />
 
                 <View
-                    android:layout_width="15dp"
-                    android:layout_height="1dp" />
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="0dp" />
 
                 <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/spacing_middle" />
 
                     <TextView
-                        android:id="@+id/txt_info"
-                        android:layout_width="100dp"
+                        android:id="@+id/txt_orderid"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:background="@drawable/rounded_add"         android:text=" Info "
-                        android:textColor="@color/colorGrey2"
-                        android:textSize="14sp" />
+                        android:text="Order no : 0101072020"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                        android:textColor="@color/grey_80"
+                        app:fontFamily="sans-serif-medium" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/spacing_middle" />
+
+                    <TextView
+                        android:id="@+id/txt_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="01 July - 01:25 PM"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        android:textColor="@color/grey_40" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/spacing_middle" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txt_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="On the way"
+                            android:textSize="15sp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textColor="@color/grey_40" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" "
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textColor="@color/grey_40" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_small"
+                            android:layout_height="0dp" />
+
+                        <TextView
+                            android:id="@+id/txt_total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="C$ 1,000.00"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textColor="@color/txt_price_color" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="0dp" />
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="2"
+                            android:gravity="center|left"
+                            android:padding="5dp"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:id="@+id/lvl_cancel"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/txt_ordcancel"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_add"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text=" Cancel "
+                                android:textColor="@color/colorGrey2"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="15dp"
+                            android:layout_height="1dp" />
+
+                        <LinearLayout
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/txt_info"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:background="@drawable/rounded_add"
+                                android:text=" Info "
+                                android:textColor="@color/colorGrey2"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/spacing_middle" />
+
                 </LinearLayout>
 
 
             </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+
+
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+    </androidx.cardview.widget.CardView>
     <View
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"

@@ -25,6 +25,7 @@ import com.freshfastfood.utils.SessionManager;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,19 +66,23 @@ public class ReletedItemDaynamicAdp extends RecyclerView.Adapter<ReletedItemDayn
         } else {
             holder.lvlOutofstock.setVisibility(View.GONE);
         }
-        Glide.with(mContext).load(APIClient.baseUrl + "/" + datum.getProductImage()).thumbnail(Glide.with(mContext).load(R.drawable.lodingimage)).into(holder.imgIcon);
+        Glide.with(mContext).load( datum.getProductImage()).thumbnail(Glide.with(mContext).load(R.drawable.lodingimage)).into(holder.imgIcon);
         holder.txtTitle.setText("" + datum.getProductName());
         if (datum.getmDiscount() > 0) {
             double  res = (Double.parseDouble(datum.getPrice().get(0).getProductPrice()) / 100.0f)* datum.getmDiscount();
             res = Integer.parseInt(datum.getPrice().get(0).getProductPrice()) - res;
+
+            String price = String.format(Locale.ENGLISH, "%1$,.2f", res);
+
             holder.priceoofer.setText(sessionManager.getStringData(currncy)  + datum.getPrice().get(0).getProductPrice());
-            holder.txtPrice.setText(sessionManager.getStringData(currncy)  + new DecimalFormat("##.##").format(res));
+            holder.txtPrice.setText(sessionManager.getStringData(currncy)  + price);
             holder.lvlOffer.setVisibility(View.VISIBLE);
             holder.txtOffer.setText(datum.getmDiscount() + "% Off");
         } else {
             holder.lvlOffer.setVisibility(View.GONE);
             holder.priceoofer.setVisibility(View.GONE);
-            holder.txtPrice.setText(sessionManager.getStringData(currncy)  + datum.getPrice().get(0).getProductPrice());
+            String price = String.format(Locale.ENGLISH, "%1$,.2f", Double.parseDouble(datum.getPrice().get(0).getProductPrice()));
+            holder.txtPrice.setText(sessionManager.getStringData(currncy)  + price );
         }
         int qrt = helper.getCard(datum.getId(), datum.getPrice().get(0).getProductPrice());
         if (qrt >= 1) {

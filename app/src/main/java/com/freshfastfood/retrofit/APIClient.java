@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClient {
     static Retrofit retrofit = null;
-    public static String baseUrl = "http://186.1.15.167:8448/grocery_14/";
+    public static String baseUrl = "http://186.1.15.167:8448/tnd/";
     //public static String baseUrl = "http://hungrygrocerydelivery.cscodetech.com/";
     public static final String APPEND_URL = "api/";
 

@@ -1,6 +1,7 @@
 package com.freshfastfood.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,11 +98,12 @@ public class SubCategoryFragment extends Fragment implements GetResult.MyListene
     }
 
     @Override
-    public void onClickItem(View v, int cid, int scid) {
+    public void onClickItem(View v, String cid, String scid) {
         homeActivity.showMenu();
         Bundle args = new Bundle();
-        args.putInt("cid", cid);
-        args.putInt("scid", scid);
+        args.putString("cid", cid);
+        args.putString("scid", scid);
+        Log.e("TAG_error", "getProduct: " + cid + " - " + scid );
         Fragment fragment = new ItemListFragment();
         fragment.setArguments(args);
         HomeActivity.getInstance().callFragment(fragment);

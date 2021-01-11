@@ -23,7 +23,10 @@ import com.freshfastfood.retrofit.APIClient;
 import com.freshfastfood.utils.SessionManager;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,26 +68,29 @@ public class ReletedItemAdp extends RecyclerView.Adapter<ReletedItemAdp.ViewHold
             holder.lvlOutofstock.setVisibility(View.GONE);
         }
 
-        Glide.with(mContext).load(APIClient.baseUrl + "/" + datum.getProductImage()).thumbnail(Glide.with(mContext).load(R.drawable.lodingimage)).into(holder.imgIcon);
+        Glide.with(mContext).load( datum.getProductImage()).thumbnail(Glide.with(mContext).load(R.drawable.lodingimage)).into(holder.imgIcon);
         holder.txtTitle.setText("" + datum.getProductName());
 
         if (datum.getmDiscount() > 0) {
             double  res = (Double.parseDouble(datum.getPrice().get(0).getProductPrice()) / 100.0f)* datum.getmDiscount();
             res = Double.parseDouble(datum.getPrice().get(0).getProductPrice()) - res;
             holder.priceoofer.setText(sessionManager.getStringData(currncy)  + datum.getPrice().get(0).getProductPrice());
-            holder.txtPrice.setText(sessionManager.getStringData(currncy)  + new DecimalFormat("##.##").format(res));
+            holder.txtPrice.setText(sessionManager.getStringData(currncy)  + new DecimalFormat("###,###.##").format(res));
+
             holder.lvlOffer.setVisibility(View.VISIBLE);
             holder.txtOffer.setText(datum.getmDiscount() + "% Off");
         } else {
             holder.lvlOffer.setVisibility(View.GONE);
             holder.priceoofer.setVisibility(View.GONE);
-            holder.txtPrice.setText(sessionManager.getStringData(currncy)  + datum.getPrice().get(0).getProductPrice());
+            String price = String.format(Locale.ENGLISH, "%1$,.2f", Double.parseDouble(datum.getPrice().get(0).getProductPrice()));
+            holder.txtPrice.setText(sessionManager.getStringData(currncy)  + price );
         }
         int qrt = helper.getCard(datum.getId(), datum.getPrice().get(0).getProductPrice());
         if (qrt >= 1) {
             holder.lvlCardbg.setBackground(mContext.getResources().getDrawable(R.drawable.bg_red_shape));
             holder.imgCard.setImageDrawable(mContext.getDrawable(R.drawable.ic_minus_rounded));
         } else {
+
             holder.lvlCardbg.setBackground(mContext.getResources().getDrawable(R.drawable.bg_green_plus));
             holder.imgCard.setImageDrawable(mContext.getDrawable(R.drawable.ic_plus_rounded));
         }
@@ -106,12 +112,33 @@ public class ReletedItemAdp extends RecyclerView.Adapter<ReletedItemAdp.ViewHold
                     myCart.setCost(datum.getPrice().get(0).getProductPrice());
                     myCart.setQty("1");
                     myCart.setDiscount(datum.getmDiscount());
+                    myCart.setReglas(datum.getmbonificado());
+                    myCart.setBonifi(getBonificado(datum.getmbonificado(),1));
+
                     helper.insertData(myCart);
                     holder.lvlCardbg.setBackground(mContext.getResources().getDrawable(R.drawable.bg_red_shape));
                     holder.imgCard.setImageDrawable(mContext.getDrawable(R.drawable.ic_minus_rounded));
                 }
             }
         });
+    }
+    public String getBonificado(String Bonificado,int Cantidad){
+
+
+
+        List<String> sList = Arrays.asList(Bonificado.split(","));
+
+        final List<String> row_arr = new ArrayList<>();
+        for (int i = 0; i < sList.size(); i++) row_arr.add(Arrays.asList(sList.get(i).replace("+", ",").split(",")).get(0));
+        int position = row_arr.indexOf(String.valueOf(Cantidad));
+
+        if (position == -1) {
+            return "0";
+        }else{
+            return sList.get(position);
+        }
+
+
     }
     @Override
     public int getItemCount() {
@@ -124,6 +151,7 @@ public class ReletedItemAdp extends RecyclerView.Adapter<ReletedItemAdp.ViewHold
         TextView txtOffer;
         @BindView(R.id.price)
         TextView txtPrice;
+
         @BindView(R.id.priceoofer)
         TextView priceoofer;
 

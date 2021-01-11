@@ -82,6 +82,18 @@
                             android:textColor="@color/colorBalck"
                             android:textSize="12dp"
                             android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txt_stock"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:padding="2dp"
+                            android:text=""
+                            android:textColor="@color/colorBalck"
+                            android:textSize="12dp"
+                            android:textStyle="bold" />
                         <View
                             android:layout_width="50dp"
                             android:layout_height="1dp"/>
@@ -157,7 +169,7 @@
             android:gravity="center|right"
             android:padding="5dp"
 
-            android:text="  Out of Stock  "
+            android:text="  Agotado  "
             android:textColor="@color/colorWhite"
             android:textSize="10dp" />
     </LinearLayout>

@@ -1,13 +1,22 @@
 package com.freshfastfood.activity;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -15,13 +24,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.freshfastfood.R;
+import com.freshfastfood.adepter.AdapterBonificado;
 import com.freshfastfood.database.DatabaseHelper;
 import com.freshfastfood.database.MyCart;
 import com.freshfastfood.model.Price;
@@ -33,6 +47,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,6 +90,18 @@ public class ItemDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tabview)
     TabLayout tabview;
 
+    @BindView(R.id.product_description)
+    WebView webview_product_description;
+
+    @BindView(R.id.recycler_bonificado)
+    RecyclerView rcViewBnfc;
+
+
+    AdapterBonificado rcBonificado;
+    List<String> sList;
+
+    final Context context = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +113,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         priceslist = getIntent().getParcelableArrayListExtra("MyList");
         if (productItem != null) {
             txtTitle.setText("" + productItem.getProductName());
-            txtDesc.setText("" + productItem.getShortDesc());
+            txtDesc.setText("Stock: " + productItem.getStock());
             txtSeler.setText("" + productItem.getSellerName());
             List<String> Arealist = new ArrayList<>();
             for (int i = 0; i < priceslist.size(); i++) {
@@ -97,6 +124,35 @@ public class ItemDetailsActivity extends AppCompatActivity {
             updateItem();
         }
 
+
+        sList = Arrays.asList(productItem.getmbonificado().split(","));
+        rcViewBnfc.setLayoutManager(new GridLayoutManager(getApplicationContext(), 4));
+        rcBonificado = new AdapterBonificado(this, sList);
+        rcViewBnfc.setAdapter(rcBonificado);
+
+
+        webview_product_description.setBackgroundColor(Color.parseColor("#ffffff"));
+        webview_product_description.setFocusableInTouchMode(false);
+        webview_product_description.setFocusable(false);
+        webview_product_description.getSettings().setDefaultTextEncodingName("UTF-8");
+
+        WebSettings webSettings = webview_product_description.getSettings();
+
+        webSettings.setDefaultFontSize(16);
+        webSettings.setJavaScriptEnabled(true);
+
+        String mimeType = "text/html; charset=UTF-8";
+        String encoding = "utf-8";
+        String htmlText = ((productItem.getShortDesc().equals("")) ? "Sin Descripcion" : productItem.getShortDesc());
+
+        String text = "<html><head>"
+                + "<style type=\"text/css\">body{color: #525252;}"
+                + "</style></head>"
+                + "<body>"
+                + htmlText
+                + "</body></html>";
+
+        webview_product_description.loadDataWithBaseURL(null, text, mimeType, encoding, null);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -106,11 +162,13 @@ public class ItemDetailsActivity extends AppCompatActivity {
                     res = Double.parseDouble(priceslist.get(position).getProductPrice()) - res;
                     txtItemOffer.setText(sessionManager.getStringData(currncy) + priceslist.get(position).getProductPrice());
                     txtItemOffer.setPaintFlags(txtItemOffer.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    txtPrice.setText(sessionManager.getStringData(currncy) + res);
+                    String price = String.format(Locale.ENGLISH, "%1$,.2f", res);
+                    txtPrice.setText(sessionManager.getStringData(currncy)  + price );
                     txtItemOffer.setText(sessionManager.getStringData(currncy) + priceslist.get(position).getProductPrice());
                 } else {
                     txtItemOffer.setVisibility(View.GONE);
-                    txtPrice.setText(sessionManager.getStringData(currncy) + priceslist.get(position).getProductPrice());
+                    String price = String.format(Locale.ENGLISH, "%1$,.2f", Double.parseDouble(priceslist.get(position).getProductPrice()));
+                    txtPrice.setText(sessionManager.getStringData(currncy)  + price );
                 }
                 setJoinPlayrList(lvlPricelist, productItem, priceslist.get(position));
             }
@@ -122,10 +180,10 @@ public class ItemDetailsActivity extends AppCompatActivity {
         });
         List<String> myList = new ArrayList<>();
         myList.add(productItem.getProductImage());
-        if (productItem.getProductRelatedImage() != null && productItem.getProductRelatedImage().length() != 0) {
-            myList.addAll(Arrays.asList(productItem.getProductRelatedImage().split(",")));
+       /* if (productItem.getProductImage() != null && productItem.getProductImage().length() != 0) {
+            myList.addAll(Arrays.asList(productItem.getProductImage().split(",")));
             tabview.setupWithViewPager(viewPager, true);
-        }
+        }*/
         MyCustomPagerAdapter myCustomPagerAdapter = new MyCustomPagerAdapter(this, myList);
         viewPager.setAdapter(myCustomPagerAdapter);
     }
@@ -168,6 +226,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         LinearLayout lvl_addcart = view.findViewById(R.id.lvl_addcart);
         LinearLayout img_mins = view.findViewById(R.id.img_mins);
         LinearLayout img_plus = view.findViewById(R.id.img_plus);
+
         MyCart myCart = new MyCart();
         myCart.setPid(datum.getId());
         myCart.setImage(datum.getProductImage());
@@ -201,7 +260,10 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 } else {
                     txtcount.setVisibility(View.VISIBLE);
                     txtcount.setText("" + count[0]);
+
                     myCart.setQty(String.valueOf(count[0]));
+                    myCart.setReglas(datum.getmbonificado());
+                    myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
                     helper.insertData(myCart);
                 }
                 updateItem();
@@ -219,6 +281,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 count[0] = count[0] + 1;
                 txtcount.setText("" + count[0]);
                 myCart.setQty(String.valueOf(count[0]));
+                myCart.setReglas(datum.getmbonificado());
+                myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
                 Log.e("INsert", "--> " + helper.insertData(myCart));
                 updateItem();
                 if (itemListFragment != null)
@@ -235,6 +299,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 count[0] = count[0] + 1;
                 txtcount.setText("" + count[0]);
                 myCart.setQty(String.valueOf(count[0]));
+                myCart.setReglas(datum.getmbonificado());
+                myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
                 Log.e("INsert", "--> " + helper.insertData(myCart));
                 updateItem();
                 if (itemListFragment != null)
@@ -242,6 +308,25 @@ public class ItemDetailsActivity extends AppCompatActivity {
             }
         });
         lnrView.addView(view);
+
+    }
+
+    public String getBonificado(String Bonificado,int Cantidad){
+
+
+
+        List<String> sList = Arrays.asList(Bonificado.split(","));
+
+        final List<String> row_arr = new ArrayList<>();
+        for (int i = 0; i < sList.size(); i++) row_arr.add(Arrays.asList(sList.get(i).replace("+", ",").split(",")).get(0));
+        int position = row_arr.indexOf(String.valueOf(Cantidad));
+
+        if (position == -1) {
+            return "0";
+        }else{
+            return sList.get(position);
+        }
+
 
     }
 
@@ -277,7 +362,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         public Object instantiateItem(ViewGroup container, final int position) {
             View itemView = layoutInflater.inflate(R.layout.item_image, container, false);
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-            Glide.with(ItemDetailsActivity.this).load(APIClient.baseUrl + "/" + imageList.get(position)).placeholder(R.drawable.empty).into(imageView);
+            Glide.with(ItemDetailsActivity.this).load(imageList.get(position)).placeholder(R.drawable.empty).into(imageView);
             container.addView(itemView);
 
             return itemView;
@@ -287,5 +372,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((LinearLayout) object);
         }
+    }
+    public interface ClickListener {
+        public void onClick(View view, int position);
     }
 }

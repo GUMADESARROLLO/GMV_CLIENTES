@@ -1,6 +1,7 @@
 package com.freshfastfood.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,6 +89,7 @@ public class CategoryFragment extends Fragment implements CategoryAdp.RecyclerTo
         Bundle args = new Bundle();
         args.putInt("id", position);
         args.putString("titel", titel);
+        Log.e("TAG_error", "getProduct: " + position + " - "  );
         Fragment fragment = new SubCategoryFragment();
         fragment.setArguments(args);
         HomeActivity.getInstance().callFragment(fragment);

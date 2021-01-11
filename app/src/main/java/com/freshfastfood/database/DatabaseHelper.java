@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import static com.freshfastfood.activity.HomeActivity.txt_countcard;
 
@@ -19,14 +20,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String ICOL_6 = "cost";
     public static final String ICOL_7 = "qty";
     public static final String ICOL_8 = "discount";
+    public static final String ICOL_9 = "reglas";
+    public static final String ICOL_10 = "Boni";
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, PID TEXT , image TEXT ,title TEXT , weight TEXT , cost TEXT, qty TEXT , discount int )");
+        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, PID TEXT , image TEXT ,title TEXT , weight TEXT , cost TEXT, qty TEXT , discount int, reglas TEXT, Boni TEXT )");
     }
 
     @Override
@@ -36,6 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean insertData(MyCart rModel) {
+
         if (getID(rModel.getPid(), rModel.getCost()) == -1) {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
@@ -46,6 +50,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(ICOL_6, rModel.getCost());
             contentValues.put(ICOL_7, rModel.getQty());
             contentValues.put(ICOL_8, rModel.getDiscount());
+            contentValues.put(ICOL_9, rModel.getReglas());
+            contentValues.put(ICOL_10, rModel.getBonifi());
+
+            Log.e("INsert", "--> " + rModel.getBonifi());
             long result = db.insert(TABLE_NAME, null, contentValues);
             if (result == -1) {
                 return false;
@@ -55,7 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 return true;
             }
         } else {
-            return updateData(rModel.getPid(), rModel.getCost(), rModel.getQty());
+            return updateData(rModel.getPid(), rModel.getCost(), rModel.getQty(),rModel.getBonifi());
         }
     }
 
@@ -83,10 +91,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean updateData(String id, String cost, String status) {
+    public boolean updateData(String id, String cost, String status,String Bonificado) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(ICOL_7, status);
+        contentValues.put(ICOL_10, Bonificado);
         db.update(TABLE_NAME, contentValues, "PID = ? AND cost =?", new String[]{id, cost});
         Cursor res = getAllData();
         txt_countcard.setText("" + res.getCount());

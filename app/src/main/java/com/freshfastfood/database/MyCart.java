@@ -8,7 +8,25 @@ public class MyCart {
     public String weight;
     public String cost;
     public String qty;
+    public String reglas;
+    public String bonifi;
     public int discount;
+
+    public String getReglas() {
+        return reglas;
+    }
+
+    public void setReglas(String reglas) {
+        this.reglas = reglas;
+    }
+
+    public String getBonifi() {
+        return bonifi;
+    }
+
+    public void setBonifi(String bonifi) {
+        this.bonifi = bonifi;
+    }
 
     public int getDiscount() {
         return discount;

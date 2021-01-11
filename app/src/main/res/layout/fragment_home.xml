@@ -59,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="5dp"
-                        android:text="Categorias"
+                        android:text="Quédate en casa \nBusca &amp; Ordena"
                         android:textColor="@color/colorBalck"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -79,7 +79,7 @@
                             android:drawableRight="@drawable/ic_right"
                             android:gravity="right|center"
                             android:padding="5dp"
-                            android:text="Ver Todo"
+                            android:text="Ver Todas"
                             android:textColor="@color/colorBalck"
                             android:textSize="14dp"
                             android:textStyle="normal" />
@@ -106,7 +106,7 @@
                         android:layout_weight="1"
                         android:gravity="center|left"
                         android:padding="5dp"
-                        android:text="En Promocio"
+                        android:text="Lo más destacado"
                         android:textColor="@color/colorBalck"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -127,7 +127,7 @@
                             android:background="@drawable/rounded_selectd"
                             android:gravity="right|center"
                             android:padding="5dp"
-                            android:text="Ver Todo"
+                            android:text="Ver Todas"
                             android:textColor="@color/colorBalck"
                             android:textSize="14dp"
                             android:textStyle="normal" />
@@ -155,7 +155,7 @@
                     android:layout_marginBottom="2dp"
                     android:gravity="center|left"
                     android:padding="5dp"
-                    android:text="Tres Facil Pasos"
+                    android:text="Tres sencillos pasos"
                     android:textColor="@color/colorBalck"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -211,7 +211,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:text="Crea la orden\n desde \n la APP"
+                            android:text="Ordena"
                             android:textColor="@color/colorBalck"
                             android:textSize="12dp" />
 
@@ -221,7 +221,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:text="La orden\n sera\n enviada"
+                            android:text="Enviamos"
                             android:textColor="@color/colorBalck"
                             android:textSize="12dp" />
 
@@ -231,7 +231,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:text="Tu Orden \n sera \n entregada"
+                            android:text="Recibes"
                             android:textColor="@color/colorBalck"
                             android:textSize="12dp" />
                     </LinearLayout>

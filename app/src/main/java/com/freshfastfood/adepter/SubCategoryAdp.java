@@ -22,7 +22,7 @@ public class SubCategoryAdp extends RecyclerView.Adapter<SubCategoryAdp.MyViewHo
     private List<SubcatItem> categoryList;
     private RecyclerTouchListener listener;
     public interface RecyclerTouchListener {
-        public void onClickItem(View v, int cid, int scid);
+        public void onClickItem(View v, String cid, String scid);
         public void onLongClickItem(View v, int position);
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -49,13 +49,13 @@ public class SubCategoryAdp extends RecyclerView.Adapter<SubCategoryAdp.MyViewHo
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         SubcatItem category = categoryList.get(position);
-        holder.title.setText(category.getName() + "(" + category.getCount() + ")");
+        holder.title.setText(category.getName());
         Glide.with(mContext).load(APIClient.baseUrl + "/" + category.getImg()).thumbnail(Glide.with(mContext).load(R.drawable.ezgifresize)).into(holder.thumbnail);
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                    listener.onClickItem(v, Integer.parseInt(category.getCatId()), Integer.parseInt(category.getId()));
+                    listener.onClickItem(v, category.getCatId(), category.getId());
 
             }
         });

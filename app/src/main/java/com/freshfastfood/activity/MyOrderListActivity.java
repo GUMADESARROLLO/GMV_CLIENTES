@@ -228,16 +228,26 @@ public class MyOrderListActivity extends BaseActivity implements GetResult.MyLis
                 View view = inflater.inflate(R.layout.custome_myoder, null);
                 ImageView img_icon = view.findViewById(R.id.img_icon);
                 TextView txt_name = view.findViewById(R.id.txt_name);
-                TextView txt_qty = view.findViewById(R.id.txt_qty);
+                TextView txt_boni = view.findViewById(R.id.txt_qty);
                 TextView txt_weight = view.findViewById(R.id.txt_weight);
                 TextView txt_price = view.findViewById(R.id.txt_price);
-                Glide.with(MyOrderListActivity.this).load(APIClient.baseUrl +  list.get(i).getProductImage()).thumbnail(Glide.with(MyOrderListActivity.this).load(R.drawable.lodingimage)).into(img_icon);
-                txt_name.setText(" " + list.get(i).getProductName());
-                txt_qty.setText(" Qty :" + list.get(i).getProductQty());
-                txt_weight.setText(" " + list.get(i).getProductWeight());
+
+                TextView txt_sku = view.findViewById(R.id.id_sku);
+
+
+                Glide.with(MyOrderListActivity.this).load( list.get(i).getProductImage()).thumbnail(Glide.with(MyOrderListActivity.this).load(R.drawable.lodingimage)).into(img_icon);
+                txt_name.setText(list.get(i).getProductName());
+
+                txt_sku.setText(list.get(i).getProductsku());
+                txt_boni.setText(list.get(i).getProductBoni());
+
+
+                double Total_linea = (Double.parseDouble(list.get(i).getProductPrice()) * Double.parseDouble(list.get(i).getProductQty()));
+                txt_weight.setText(sessionManager.getStringData(currncy).concat(String.valueOf(Total_linea)));
+
                 double ress = (Double.parseDouble(list.get(i).getProductPrice()) * list.get(i).getDiscount()) / 100;
                 ress = Double.parseDouble(list.get(i).getProductPrice()) - ress;
-                txt_price.setText(sessionManager.getStringData(currncy) + ress);
+                txt_price.setText(sessionManager.getStringData(currncy) + ress + " X " + list.get(i).getProductQty());
                 lnrView.addView(view);
             }
         }

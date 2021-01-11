@@ -39,7 +39,7 @@
                         android:gravity="center|left"
                         android:maxLength="12"
                         android:padding="5dp"
-                        android:text="BUTCHERY"
+                        android:text="Hola XXXX"
                         android:textColor="@color/colorWhite"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -56,8 +56,8 @@
                             android:id="@+id/img_noti"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:layout_gravity="center"
                             android:tint="@color/colorWhite"
+                            android:layout_gravity="center"
                             android:src="@drawable/ic_notification" />
 
                         <TextView
@@ -85,10 +85,10 @@
                         android:gravity="center">
 
                         <ImageView
-                            android:tint="@color/colorWhite"
                             android:id="@+id/img_cart"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
+                            android:tint="@color/colorWhite"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_cart" />
 
@@ -170,7 +170,7 @@
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:gravity="left|center"
-                    android:hint="Buscar.."
+                    android:hint="Buscar..."
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:paddingLeft="8dp"

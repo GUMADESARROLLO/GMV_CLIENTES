@@ -61,8 +61,8 @@ public class ItemListFragment extends Fragment implements GetResult.MyListener {
     Unbinder unbinder;
     ItemAdp itemAdp;
     List<ProductItem> productDataList;
-    int cid = 0;
-    int scid = 0;
+    String cid ;
+    String scid ;
     SessionManager sessionManager;
      StaggeredGridLayoutManager gridLayoutManager;
     public static ItemListFragment itemListFragment;
@@ -91,16 +91,21 @@ public class ItemListFragment extends Fragment implements GetResult.MyListener {
         databaseHelper = new DatabaseHelper(getActivity());
         itemListFragment = this;
         sessionManager = new SessionManager(getActivity());
-        cid = b.getInt("cid");
-        scid = b.getInt("scid");
+
+        cid = b.getString("cid");
+        scid = b.getString("scid");
         myRecyclerView.setHasFixedSize(true);
         productDataList = new ArrayList<>();
         gridLayoutManager = new StaggeredGridLayoutManager(1, 1);
         myRecyclerView.setLayoutManager(gridLayoutManager);
         itemAdp = new ItemAdp(getActivity(), productDataList);
         myRecyclerView.setAdapter(itemAdp);
-        if (cid == 0) {
+
+
+
+        if (cid==null) {
             String keyword = b.getString("search");
+
             if (keyword.trim().length() != 0) {
                 getSearch(keyword);
             } else {

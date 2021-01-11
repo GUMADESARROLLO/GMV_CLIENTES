@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,11 +27,11 @@ import com.freshfastfood.database.DatabaseHelper;
 import com.freshfastfood.database.MyCart;
 import com.freshfastfood.model.Price;
 import com.freshfastfood.model.ProductItem;
-import com.freshfastfood.retrofit.APIClient;
 import com.freshfastfood.utils.SessionManager;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -45,6 +46,8 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
     private ItemClickListener mClickListener;
     Context mContext;
     SessionManager sessionManager;
+
+
 
     public ItemAdp(Context context, List<ProductItem> data) {
         this.mInflater = LayoutInflater.from(context);
@@ -64,13 +67,21 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         ProductItem datum = mData.get(position);
+
+
         if (datum.getStock() == 0) {
             holder.lvlOutofstock.setVisibility(View.VISIBLE);
         } else {
             holder.lvlOutofstock.setVisibility(View.GONE);
 
         }
-        Glide.with(mContext).load(APIClient.baseUrl + "/" + datum.getProductImage()).thumbnail(Glide.with(mContext).load(R.drawable.ezgifresize)).into(holder.imgIcon);
+
+
+
+
+
+        holder.txtStock.setText("Stock: " + datum.getStock());
+        Glide.with(mContext).load(datum.getProductImage()).thumbnail(Glide.with(mContext).load(R.drawable.ezgifresize)).into(holder.imgIcon);
         holder.txtTitle.setText("" + datum.getProductName());
         holder.imgIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +112,7 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
                     holder.txtItemOffer.setText(sessionManager.getStringData(currncy) + datum.getPrice().get(position).getProductPrice());
                     holder.txtItemOffer.setPaintFlags(holder.txtItemOffer.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     holder.txtPrice.setText(sessionManager.getStringData(currncy) + new DecimalFormat("##.##").format(res));
+
                     holder.txtItemOffer.setText(sessionManager.getStringData(currncy) + datum.getPrice().get(position).getProductPrice());
                 } else {
                     holder.txtItemOffer.setVisibility(View.GONE);
@@ -126,6 +138,8 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
         TextView txtItemOffer;
         @BindView(R.id.txt_price)
         TextView txtPrice;
+        @BindView(R.id.txt_stock)
+        TextView txtStock;
         @BindView(R.id.lvl_subitem)
         LinearLayout lvlSubitem;
         @BindView(R.id.lvl_offer)
@@ -163,6 +177,7 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
         LinearLayout lvl_addcart = view.findViewById(R.id.lvl_addcart);
         LinearLayout img_mins = view.findViewById(R.id.img_mins);
         LinearLayout img_plus = view.findViewById(R.id.img_plus);
+
         MyCart myCart = new MyCart();
         myCart.setPid(datum.getId());
         myCart.setImage(datum.getProductImage());
@@ -170,6 +185,7 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
         myCart.setWeight(price.getProductType());
         myCart.setCost(price.getProductPrice());
         myCart.setDiscount(datum.getmDiscount());
+
         int qrt = helper.getCard(myCart.getPid(), myCart.getCost());
         if (qrt != -1) {
             count[0] = qrt;
@@ -185,6 +201,8 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
             @Override
             public void onClick(View v) {
 
+
+
                 count[0] = Integer.parseInt(txtcount.getText().toString());
 
                 count[0] = count[0] - 1;
@@ -194,9 +212,12 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
                     lvl_addcart.setVisibility(View.VISIBLE);
                     helper.deleteRData(myCart.getPid(), myCart.getCost());
                 } else {
+
                     txtcount.setVisibility(View.VISIBLE);
                     txtcount.setText("" + count[0]);
                     myCart.setQty(String.valueOf(count[0]));
+                    myCart.setReglas(datum.getmbonificado());
+                    myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
                     helper.insertData(myCart);
                 }
                 itemListFragment.updateItem();
@@ -208,8 +229,12 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
             public void onClick(View v) {
                 count[0] = Integer.parseInt(txtcount.getText().toString());
                 count[0] = count[0] + 1;
+
                 txtcount.setText("" + count[0]);
                 myCart.setQty(String.valueOf(count[0]));
+                myCart.setReglas(datum.getmbonificado());
+                myCart.setReglas(datum.getmbonificado());
+                myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
                 Log.e("INsert", "--> " + helper.insertData(myCart));
                 itemListFragment.updateItem();
             }
@@ -223,11 +248,33 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
                 count[0] = count[0] + 1;
                 txtcount.setText("" + count[0]);
                 myCart.setQty(String.valueOf(count[0]));
+                myCart.setReglas(datum.getmbonificado());
+                myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
                 Log.e("INsert", "--> " + helper.insertData(myCart));
                 itemListFragment.updateItem();
             }
         });
+
         lnrView.addView(view);
 
     }
+    public String getBonificado(String Bonificado,int Cantidad){
+
+
+
+        List<String> sList = Arrays.asList(Bonificado.split(","));
+
+        final List<String> row_arr = new ArrayList<>();
+        for (int i = 0; i < sList.size(); i++) row_arr.add(Arrays.asList(sList.get(i).replace("+", ",").split(",")).get(0));
+        int position = row_arr.indexOf(String.valueOf(Cantidad));
+
+        if (position == -1) {
+           return "0";
+        }else{
+            return sList.get(position);
+        }
+
+
+    }
+
 }

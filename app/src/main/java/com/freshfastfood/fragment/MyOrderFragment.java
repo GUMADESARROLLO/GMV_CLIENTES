@@ -143,12 +143,14 @@ public class MyOrderFragment extends Fragment implements GetResult.MyListener {
                 a = a + 1;
                 View view = inflater.inflate(R.layout.custome_oder, null);
                 TextView txt_orderid = view.findViewById(R.id.txt_orderid);
+                TextView txt_date = view.findViewById(R.id.txt_date);
                 TextView txt_info = view.findViewById(R.id.txt_info);
                 TextView txt_ordcancel = view.findViewById(R.id.txt_ordcancel);
                 LinearLayout lvl_cancel = view.findViewById(R.id.lvl_cancel);
                 TextView txt_status = view.findViewById(R.id.txt_status);
                 TextView txt_total = view.findViewById(R.id.txt_total);
-                txt_orderid.setText("Order ID:" + orderData.get(i).getId());
+                txt_orderid.setText("Nº " + orderData.get(i).getId());
+                txt_date.setText(orderData.get(i).getOrderDate());
                 txt_total.setText(sessionManager.getStringData(currncy) + orderData.get(i).getTotalamt());
                 if (orderData.get(i).getStatus().equalsIgnoreCase("completed")) {
                     txt_status.setTextColor(getResources().getColor(R.color.colorPrimary));

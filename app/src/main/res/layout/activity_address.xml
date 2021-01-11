@@ -57,21 +57,10 @@
                     android:layout_weight="1.5"
                     android:background="@drawable/rounded_editetext"
                     android:hint="Casa Nº"
-                      android:padding="10dp"
+                    android:padding="10dp"
                     android:textColor="@color/colorGrey2" />
 
 
-                <EditText
-                    android:id="@+id/ed_society"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_editetext"
-                    android:hint="Sociedad"
-                      android:padding="10dp"
-                    android:textColor="@color/colorGrey2" />
             </LinearLayout>
 
             <TextView
@@ -79,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:padding="2dp"
-                android:text="Area"
+                android:text="Departamento"
                 android:textSize="16dp" />
 
             <LinearLayout
@@ -114,9 +103,7 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/rounded_editetext"
                 android:hint="Referencia"
-                android:inputType="number"
-                android:maxLength="6"
-                  android:padding="10dp"
+                android:padding="10dp"
                 android:textColor="@color/colorGrey2" />
 
 

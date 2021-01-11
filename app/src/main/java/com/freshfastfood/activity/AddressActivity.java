@@ -45,8 +45,7 @@ public class AddressActivity extends BaseActivity implements GetResult.MyListene
     SessionManager sessionManager;
     @BindView(R.id.ed_hoousno)
     EditText edHoousno;
-    @BindView(R.id.ed_society)
-    EditText edSociety;
+
     @BindView(R.id.ed_pinno)
     EditText edPinno;
     String areaSelect;
@@ -60,6 +59,7 @@ public class AddressActivity extends BaseActivity implements GetResult.MyListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
+        setTitle("Agregar Dirección");
         ButterKnife.bind(this);
         sessionManager = new SessionManager(AddressActivity.this);
         user = sessionManager.getUserDetails("");
@@ -84,7 +84,6 @@ public class AddressActivity extends BaseActivity implements GetResult.MyListene
         edUsername.setText("" + address.getName());
         edType.setText("" + address.getName());
         edHoousno.setText("" + address.getHno());
-        edSociety.setText("" + address.getSociety());
         edPinno.setText("" + address.getPincode());
         edLandmark.setText("" + address.getLandmark());
         edType.setText("" + address.getType());
@@ -117,7 +116,7 @@ public class AddressActivity extends BaseActivity implements GetResult.MyListene
             jsonObject.put("aid", aid);
             jsonObject.put("name", edUsername.getText().toString());
             jsonObject.put("hno", edHoousno.getText().toString());
-            jsonObject.put("society", edSociety.getText().toString());
+            jsonObject.put("society", "0");
             jsonObject.put("area", areaSelect);
             jsonObject.put("landmark", edLandmark.getText().toString());
             jsonObject.put("pincode", edPinno.getText().toString());
@@ -170,23 +169,20 @@ public class AddressActivity extends BaseActivity implements GetResult.MyListene
 
     public boolean validation() {
         if (edUsername.getText().toString().isEmpty()) {
-            edUsername.setError("Enter Name");
+            edUsername.setError("Campo Requerido");
             return false;
         }
         if (edHoousno.getText().toString().isEmpty()) {
-            edHoousno.setError("Enter House No");
+            edHoousno.setError("Campo Requerido");
             return false;
         }
-        if (edSociety.getText().toString().isEmpty()) {
-            edSociety.setError("Enter Society");
-            return false;
-        }
+
         if (edLandmark.getText().toString().isEmpty()) {
-            edLandmark.setError("Enter Landmark");
+            edLandmark.setError("Campo Requerido");
             return false;
         }
         if (edPinno.getText().toString().isEmpty()) {
-            edPinno.setError("Enter Pincode");
+            edPinno.setError("Campo Requerido");
             return false;
         }
         return true;

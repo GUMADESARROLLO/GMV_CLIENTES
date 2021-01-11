@@ -85,7 +85,7 @@
                 android:layout_margin="3dp"
                 android:gravity="center"
                 android:padding="3dp"
-                android:text="Add"
+                android:text="Agregar"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>
     </LinearLayout>

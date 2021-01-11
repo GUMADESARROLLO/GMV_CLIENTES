@@ -33,6 +33,7 @@ import com.freshfastfood.utils.SessionManager;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -85,7 +86,7 @@ public class CardFragment extends Fragment {
         Cursor res = databaseHelper.getAllData();
         if (res.getCount() == 0) {
             lvlNotfound.setVisibility(View.VISIBLE);
-            txtNotfound.setText("Cart Empty");
+            txtNotfound.setText("Carrito vacío");
             lvlBacket.setVisibility(View.GONE);
 
         }
@@ -99,6 +100,8 @@ public class CardFragment extends Fragment {
             rModel.setCost(res.getString(5));
             rModel.setQty(res.getString(6));
             rModel.setDiscount(res.getInt(7));
+            rModel.setReglas(res.getString(8));
+            rModel.setBonifi(res.getString(9));
             myCarts.add(rModel);
         }
 
@@ -140,12 +143,15 @@ public class CardFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int i) {
             MyCart cart = mData.get(i);
-            Glide.with(getActivity()).load(APIClient.baseUrl + "/" + cart.getImage()).thumbnail(Glide.with(getActivity()).load(R.drawable.lodingimage)).into(holder.imgIcon);
+            Glide.with(getActivity()).load(cart.getImage()).thumbnail(Glide.with(getActivity()).load(R.drawable.lodingimage)).into(holder.imgIcon);
             double res = (Double.parseDouble(cart.getCost()) * myCarts.get(i).getDiscount()) / 100;
             res = Double.parseDouble(cart.getCost()) - res;
+
             holder.txtGram.setText("  " + cart.getWeight() + "  ");
-            holder.txtPrice.setText(sessionManager.getStringData(currncy) + new DecimalFormat("##.##").format(res));
+            holder.txtPrice.setText(sessionManager.getStringData(currncy) + new DecimalFormat(" ##.##").format(res * Double.parseDouble(cart.getQty())));
             holder.txtTitle.setText("" + cart.getTitle());
+            holder.txtBonificado.setText(cart.bonifi);
+            holder.txtcantidad.setText((sessionManager.getStringData(currncy)).concat(new DecimalFormat(" ##.##").format(res)));
 
             MyCart myCart = new MyCart();
             myCart.setPid(cart.getPid());
@@ -154,6 +160,8 @@ public class CardFragment extends Fragment {
             myCart.setWeight(cart.getWeight());
             myCart.setCost(cart.getCost());
             myCart.setDiscount(cart.getDiscount());
+            myCart.setReglas(cart.getReglas());
+            myCart.setBonifi(cart.getBonifi());
             int qrt = helper.getCard(myCart.getPid(), myCart.getCost());
             if (qrt != -1) {
                 count[0] = qrt;
@@ -174,6 +182,7 @@ public class CardFragment extends Fragment {
                 public void onClick(View v) {
                     count[0] = Integer.parseInt(holder.txtcount.getText().toString());
                     count[0] = count[0] - 1;
+
                     if (count[0] <= 0) {
                         holder.txtcount.setVisibility(View.INVISIBLE);
                         holder.imgMins.setVisibility(View.INVISIBLE);
@@ -193,6 +202,7 @@ public class CardFragment extends Fragment {
                         holder.txtcount.setText("" + count[0]);
                         myCart.setQty(String.valueOf(count[0]));
                         totalAmount[0] = totalAmount[0] - Double.parseDouble(myCart.getCost());
+                        myCart.setBonifi(getBonificado(myCart.getReglas(),count[0]));
                         helper.insertData(myCart);
                         notifyDataSetChanged();
                         updateItem();
@@ -203,6 +213,7 @@ public class CardFragment extends Fragment {
             holder.imgPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     holder.txtcount.setVisibility(View.VISIBLE);
                     holder.imgMins.setVisibility(View.VISIBLE);
                     count[0] = Integer.parseInt(holder.txtcount.getText().toString());
@@ -210,6 +221,7 @@ public class CardFragment extends Fragment {
                     count[0] = count[0] + 1;
                     holder.txtcount.setText("" + count[0]);
                     myCart.setQty(String.valueOf(count[0]));
+                    myCart.setBonifi(getBonificado(myCart.getReglas(),count[0]));
                     helper.insertData(myCart);
                     updateItem();
                 }
@@ -218,10 +230,10 @@ public class CardFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     AlertDialog myDelete = new AlertDialog.Builder(getActivity())
-                            .setTitle("Delete")
-                            .setMessage("Do you want to Delete")
+                            .setTitle("Borrar")
+                            .setMessage("Quieres borrar")
                             .setIcon(R.drawable.ic_delete)
-                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     Log.d("sdj", "" + whichButton);
                                     dialog.dismiss();
@@ -233,7 +245,7 @@ public class CardFragment extends Fragment {
                                 }
 
                             })
-                            .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     Log.d("sdj", "" + which);
                                     dialog.dismiss();
@@ -243,6 +255,24 @@ public class CardFragment extends Fragment {
                     myDelete.show();
                 }
             });
+
+        }
+
+        public String getBonificado(String Bonificado,int Cantidad){
+
+            List<String> sList = Arrays.asList(Bonificado.split(","));
+
+            final List<String> row_arr = new ArrayList<>();
+            for (int i = 0; i < sList.size(); i++) row_arr.add(Arrays.asList(sList.get(i).replace("+", ",").split(",")).get(0));
+            int position = row_arr.indexOf(String.valueOf(Cantidad));
+
+
+
+            if (position == -1) {
+                return "0";
+            }else{
+                return sList.get(position);
+            }
 
         }
 
@@ -258,6 +288,8 @@ public class CardFragment extends Fragment {
             TextView txtTitle;
             @BindView(R.id.txt_price)
             TextView txtPrice;
+            @BindView(R.id.txt_bonificado)
+            TextView txtBonificado;
             @BindView(R.id.txt_gram)
             TextView txtGram;
             @BindView(R.id.img_delete)
@@ -270,6 +302,9 @@ public class CardFragment extends Fragment {
             LinearLayout imgPlus;
             @BindView(R.id.lvl_addremove)
             LinearLayout lvlAddremove;
+
+            @BindView(R.id.txt_cantidad)
+            TextView txtcantidad;
 
             ViewHolder(View itemView) {
                 super(itemView);
@@ -288,7 +323,7 @@ public class CardFragment extends Fragment {
         int totalItem = 0;
         if (res.getCount() == 0) {
             lvlNotfound.setVisibility(View.VISIBLE);
-            txtNotfound.setText("Cart Empty");
+            txtNotfound.setText("Carrito vacío");
             lvlBacket.setVisibility(View.GONE);
 
         }
@@ -322,11 +357,11 @@ public class CardFragment extends Fragment {
         if (sessionManager.getBooleanData(login)) {
             if (sessionManager.getIntData(oMin) <= total) {
                 HomeActivity.getInstance().serchviewHide();
-                HomeActivity.getInstance().titleChange("Placed Order Now");
+                HomeActivity.getInstance().titleChange("Pedido realizado ahora");
                 PlaceOrderFragment fragment = new PlaceOrderFragment();
                 HomeActivity.getInstance().callFragment(fragment);
             } else {
-                Toast.makeText(getActivity(), "Minimum order value of " + sessionManager.getStringData(currncy) + " " + sessionManager.getIntData(oMin), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Valor mínimo de pedido de " + sessionManager.getStringData(currncy) + " " + sessionManager.getIntData(oMin), Toast.LENGTH_SHORT).show();
             }
         } else {
             startActivity(new Intent(getActivity(), LoginActivity.class));
@@ -338,7 +373,7 @@ public class CardFragment extends Fragment {
         super.onResume();
         HomeActivity.getInstance().serchviewShow();
         HomeActivity.getInstance().setFrameMargin(60);
-        HomeActivity.getInstance().titleChange("MyCart");
+        HomeActivity.getInstance().titleChange("Mi Carrito");
 
     }
 }

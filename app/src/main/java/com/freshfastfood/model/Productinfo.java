@@ -19,6 +19,28 @@ public class Productinfo {
     @SerializedName("discount")
     private int discount;
 
+    @SerializedName("product_sku")
+    private String productsku;
+
+    @SerializedName("product_Boni")
+    private String productBoni;
+
+    public String getProductsku() {
+        return productsku;
+    }
+
+    public void setProductsku(String productsku) {
+        this.productsku = productsku;
+    }
+
+    public String getProductBoni() {
+        return productBoni;
+    }
+
+    public void setProductBoni(String productBoni) {
+        this.productBoni = productBoni;
+    }
+
     public String getProductImage() {
         return mProductImage;
     }

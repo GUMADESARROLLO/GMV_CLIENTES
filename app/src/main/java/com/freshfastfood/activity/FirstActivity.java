@@ -29,7 +29,7 @@ public class FirstActivity extends ActivityManagePermission {
                     Intent i = new Intent(FirstActivity.this, HomeActivity.class);
                     startActivity(i);
                 } else {
-                    Intent i = new Intent(FirstActivity.this, InfoActivity.class);
+                    Intent i = new Intent(FirstActivity.this, LoginActivity.class);
                     startActivity(i);
                 }
                 finish();
