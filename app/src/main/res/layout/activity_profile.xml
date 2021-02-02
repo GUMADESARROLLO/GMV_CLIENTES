@@ -134,7 +134,7 @@
                         android:background="@drawable/rounded_green"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="Save"
+                        android:text="Guardar"
                         android:textColor="@color/colorWhite" />
 
                 <View

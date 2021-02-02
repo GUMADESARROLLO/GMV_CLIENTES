@@ -2,8 +2,6 @@
 <androidx.cardview.widget.CardView android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginLeft="@dimen/spacing_smlarge"
-    android:layout_marginRight="@dimen/spacing_smlarge"
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="2dp"
     app:cardElevation="2dp"
@@ -111,6 +109,21 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/txt_priceanditem"
+                            android:layout_marginRight="@dimen/spacing_medium"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="150,000.00 [CJA]"
+                            android:textColor="@color/grey_40" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_marginEnd="@dimen/spacing_xmedium"
                             android:id="@+id/txt_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -119,19 +132,7 @@
                             android:textColor="@color/txt_price_color"
                             app:fontFamily="sans-serif-medium" />
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
 
-                        <TextView
-                            android:id="@+id/txt_priceanditem"
-                            android:layout_marginRight="@dimen/spacing_medium"
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="150,000.00 [CJA]"
-                            android:textColor="@color/grey_40" />
 
                     </LinearLayout>
 

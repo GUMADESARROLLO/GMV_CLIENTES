@@ -43,31 +43,48 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="@dimen/spacing_middle" />
-
-                    <TextView
-                        android:id="@+id/txt_orderid"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Order no : 0101072020"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                        android:textColor="@color/grey_80"
-                        app:fontFamily="sans-serif-medium" />
+                        android:orientation="horizontal">
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/spacing_middle" />
+                        <TextView
+                            android:id="@+id/txt_orderid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0101072020"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                            android:textColor="@color/grey_80"
+                            app:fontFamily="sans-serif-medium" />
 
-                    <TextView
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+
+                      <TextView
                         android:id="@+id/txt_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="01 July - 01:25 PM"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                        android:textColor="@color/grey_40" />
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="0101072020"
+                          android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                          android:textColor="@color/grey_80"
+                          app:fontFamily="sans-serif-medium" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="0dp" />
+
+
+                    </LinearLayout>
+
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="@dimen/spacing_middle" />
+
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -88,16 +105,6 @@
                             android:layout_height="0dp"
                             android:layout_weight="1" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                            android:textColor="@color/grey_40" />
-
-                        <View
-                            android:layout_width="@dimen/spacing_small"
-                            android:layout_height="0dp" />
 
                         <TextView
                             android:id="@+id/txt_total"
@@ -114,6 +121,9 @@
 
 
                     </LinearLayout>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/spacing_middle" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,6 +135,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="2"
+                            android:text=""
                             android:gravity="center|left"
                             android:padding="5dp"
                             android:textColor="@color/colorPrimary"
@@ -143,7 +154,7 @@
                                 android:background="@drawable/rounded_add"
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:text=" Cancel "
+                                android:text=" Cancelar "
                                 android:textColor="@color/colorGrey2"
                                 android:textSize="14sp" />
                         </LinearLayout>
@@ -171,9 +182,6 @@
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/spacing_middle" />
 
                 </LinearLayout>
 

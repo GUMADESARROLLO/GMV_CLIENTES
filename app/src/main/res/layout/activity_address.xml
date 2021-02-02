@@ -1,116 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".activity.SingActivity">
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
-    <LinearLayout
+
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:scrollingCache="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:padding="5dp"
-            android:layout_marginRight="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/spacing_mxlarge"
+            android:paddingTop="@dimen/spacing_medium"
+            android:paddingRight="@dimen/spacing_mxlarge"
+            android:paddingBottom="@dimen/spacing_xxlarge">
 
 
-            <EditText
-                android:id="@+id/ed_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_editetext"
-                android:hint="Nombre"
-                android:padding="10dp"
-                android:textColor="@color/colorGrey2" />
-
-
-            <EditText
-                android:id="@+id/ed_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/rounded_editetext"
-                android:hint="Dirección"
-                  android:padding="10dp"
-                android:textColor="@color/colorGrey2" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/ed_hoousno"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1.5"
-                    android:background="@drawable/rounded_editetext"
-                    android:hint="Casa Nº"
-                    android:padding="10dp"
-                    android:textColor="@color/colorGrey2" />
-
-
-            </LinearLayout>
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:padding="2dp"
+                android:layout_marginTop="@dimen/spacing_mlarge"
+                android:text="Nombre de Referencia"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/grey_40" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_xmlarge"
+                android:layout_marginTop="@dimen/spacing_middle"
+                android:background="@color/grey_3"
+                app:hintEnabled="false">
+
+                <EditText
+                    android:id="@+id/ed_titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_text_round_bg_outline"
+                    android:hint=""
+                    android:textColorHint="@color/grey_20" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ly_id_Area"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_mlarge"
                 android:text="Departamento"
-                android:textSize="16dp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/grey_40" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:layout_marginTop="5dp"
-                android:background="@drawable/rounded_editetext">
+                android:background="@drawable/edit_text_round_bg_outline"
+                android:layout_marginTop="5dp">
 
                 <Spinner
-                    android:id="@+id/spinner"
+                    android:id="@+id/spinner_lugar"
                     android:layout_width="fill_parent"
                     android:layout_height="45dp"
                     android:prompt="@string/spinner_title" />
             </LinearLayout>
+            </LinearLayout>
 
-            <EditText
-                android:id="@+id/ed_landmark"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_mlarge"
+                android:text="Dirección"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/grey_40" />
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/rounded_editetext"
-                android:hint="Referencia"
-                  android:padding="10dp"
-                android:textColor="@color/colorGrey2" />
+                android:layout_marginTop="@dimen/spacing_middle"
+                android:background="@color/grey_3"
+                app:hintEnabled="false">
+
+                <EditText
+                    android:id="@+id/ed_direcc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_text_round_bg_outline"
+                    android:gravity="start"
+                    android:inputType="textMultiLine"
+                    android:lines="4"
+
+                    android:textColor="@color/grey_60" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_mlarge"
+                android:text="Referencia"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/grey_40" />
 
 
-            <EditText
-                android:id="@+id/ed_pinno"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/rounded_editetext"
-                android:hint="Referencia"
-                android:padding="10dp"
-                android:textColor="@color/colorGrey2" />
+                android:layout_marginTop="@dimen/spacing_middle"
+                android:background="@color/grey_3"
+                app:hintEnabled="false">
 
+                <EditText
+                    android:id="@+id/ed_referencia"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_text_round_bg_outline"
+                    android:gravity="start"
+                    android:inputType="textMultiLine"
+                    android:lines="4"
+                    android:textColor="@color/grey_60" />
 
-
-
+            </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
+                android:id="@+id/id_lly_btn_save"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginLeft="20dp"
@@ -131,10 +161,8 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="25dp" />
         </LinearLayout>
 
-    </LinearLayout>
-</ScrollView>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

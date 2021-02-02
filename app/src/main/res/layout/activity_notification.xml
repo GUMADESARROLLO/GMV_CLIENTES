@@ -27,7 +27,7 @@
         android:layout_centerVertical="true"
         android:gravity="center"
         android:visibility="gone"
-        android:text="No Notifications Found."
+        android:text="No se encontraron notificaciones."
         android:textSize="24dp"
         android:textStyle="bold" />
 </RelativeLayout>

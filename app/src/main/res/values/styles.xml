@@ -22,6 +22,20 @@
         <item name="mrl_rippleHover">true</item>
         <item name="mrl_rippleAlpha">0.2</item>
     </style>
+    <style name="TextAppearance.Subhead.Bold" parent="@style/TextAppearance.AppCompat.Subhead">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="White.AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Color Primary will be toolbar color -->
+        <item name="colorPrimary">@color/overlay_light_90</item>
+        <!-- Color Primary Dark will be default status bar color -->
+        <item name="colorPrimaryDark">@color/overlay_light_90</item>
+    </style>
+
+    <style name="Toolbar.Light" parent="@style/AppTheme">
+        <item name="colorControlNormal">@color/grey_60</item>
+        <item name="android:textColorPrimary">@color/grey_60</item>
+    </style>
 
     <style name="RippleStyleBlack" parent="RippleStyleWhite">
         <item name="mrl_rippleColor">#8096989A</item>
@@ -41,6 +55,10 @@
         <item name="android:minHeight">30dip</item>
         <item name="android:maxHeight">30dip</item>
     </style>
-
+    <style name="EditText.Flat.Grey.Small" parent="@style/AppTheme">
+        <item name="android:textColorHint">@color/grey_40</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/grey_90</item>
+    </style>
 
 </resources>

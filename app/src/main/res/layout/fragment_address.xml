@@ -51,7 +51,7 @@
         android:layout_marginRight="18dp"
         android:background="@drawable/rounded_green"
         android:gravity="center"
-        android:text="Agrega otra dirección"
+        android:text="Nueva"
         android:textColor="@color/colorWhite"
         android:textSize="21dp" />
 </LinearLayout>

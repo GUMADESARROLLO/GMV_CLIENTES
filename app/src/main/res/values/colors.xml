@@ -26,6 +26,16 @@
     <color name="light_blue_400">#29B6F6</color>
     <color name="txt_price_color">#0AAC3A</color>
     <color name="light_green_400">#9CCC65</color>
+    <color name="overlay_dark_40">#66000000</color>
+    <color name="overlay_light_10">#1AFFFFFF</color>
+    <color name="overlay_light_20">#33FFFFFF</color>
+    <color name="overlay_light_30">#4DFFFFFF</color>
+    <color name="overlay_light_40">#66FFFFFF</color>
+    <color name="overlay_light_50">#8FFFFFF0</color>
+    <color name="overlay_light_60">#99FFFFFF</color>
+    <color name="overlay_light_70">#B3FFFFFF</color>
+    <color name="overlay_light_80">#CCFFFFFF</color>
+    <color name="overlay_light_90">#E6FFFFFF</color>
 
     <color name="blue_50">#E3F2FD</color>
     <color name="blue_100">#BBDEFB</color>

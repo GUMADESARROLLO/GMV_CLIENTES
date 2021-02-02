@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/grey_soft"
     tools:context=".fragment.CardFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -47,6 +48,58 @@
         </LinearLayout>
     </RelativeLayout>
 
+
+    <RelativeLayout
+        android:id="@+id/rlvSubTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="Sub Total"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/totleAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="C$ 103.88"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rlvIva"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="I . V . A"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:textColor="@color/grey_40" />
+
+        <TextView
+            android:id="@+id/txt_valor_iva"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="C$ 103.88"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:textColor="@color/grey_40" />
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/lvlbacket"
         android:layout_width="match_parent"
@@ -69,8 +122,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:padding="10dp"
-                android:text="Total Item"
-                android:textColor="@color/colorBalck"
+                android:text="Total"
+                android:textColor="@color/colorWhite"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
@@ -80,13 +133,13 @@
                 android:background="@color/colorBalck" />
 
             <TextView
-                android:id="@+id/totleAmount"
+                android:id="@+id/txt_monto_final"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:padding="10dp"
-                android:text="Total :  "
-                android:textColor="@color/colorBalck"
+                android:text="C$ 103.88"
+                android:textColor="@color/colorWhite"
                 android:textSize="16dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -113,7 +166,7 @@
                     android:fontFamily="@font/coresans_cr_medium"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="Orden"
+                    android:text="Seguin."
                     android:textColor="@color/colorPrimary"
                     android:textSize="16dp"
                     android:textStyle="bold" />

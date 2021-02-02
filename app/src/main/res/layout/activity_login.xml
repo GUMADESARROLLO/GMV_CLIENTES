@@ -63,7 +63,7 @@
                     android:background="@drawable/rounded_editetext"
                     android:drawableLeft="@drawable/ic_perm_"
                     android:drawablePadding="10dp"
-                    android:hint="Email - No Tel."
+                    android:hint="Numero  de Cliente."
                     android:inputType="text"
                     android:padding="12dp"
                     android:textColor="@color/colorGrey2"
@@ -140,7 +140,6 @@
             android:layout_height="10dp" />
 
         <LinearLayout
-            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginLeft="20dp"
@@ -156,10 +155,11 @@
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="¿No tienes una cuenta?"
+                android:text="v1.5.22.2"
                 android:textColor="@color/colorGrey2" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/btn_sign"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"

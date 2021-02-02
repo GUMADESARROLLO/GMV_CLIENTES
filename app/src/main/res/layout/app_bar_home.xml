@@ -170,7 +170,7 @@
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:gravity="left|center"
-                    android:hint="Buscar..."
+                    android:hint="Busqueda por articulo..."
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:paddingLeft="8dp"

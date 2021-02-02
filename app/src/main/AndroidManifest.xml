@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.freshfastfood">
+    package="com.tiendaumk">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.tiendaumk.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo_standar"
         android:label="@string/app_name"
@@ -19,99 +19,116 @@
         android:usesCleartextTraffic="true"
 
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.PaypalActivity" />
-        <activity android:name=".activity.ChanegPasswordActivity" />
+        <activity android:name="com.tiendaumk.activity.PaypalActivity" />
+        <activity android:name="com.tiendaumk.activity.ChanegPasswordActivity" />
+        <activity android:name="com.tiendaumk.activity.ActivityViewFactura" />
         <activity
-            android:name=".activity.BaseActivity"
+            android:name="com.tiendaumk.activity.BaseActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.AboutsActivity"
+            android:name="com.tiendaumk.activity.AboutsActivity"
             android:label="About"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.TramsAndConditionActivity"
+            android:name="com.tiendaumk.activity.TramsAndConditionActivity"
             android:label="Terms &amp; Conditions"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".activity.PrivecyPolicyActivity"
+            android:name="com.tiendaumk.activity.PrivecyPolicyActivity"
             android:label="Privacy &amp; Policy"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+
+        <activity android:name="com.tiendaumk.activity.ActivityUltimos3m"
+            android:label="Ultimos 3 Meses"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+
+        <activity android:name="com.tiendaumk.activity.ActivityNoFacturado"
+            android:label="Ultimos 3 Meses"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+
         <activity
-            android:name=".activity.ContectusActivity"
+            android:name="com.tiendaumk.activity.ActivityPerfilCliente"
+            android:label="Saldos de Facturas"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.tiendaumk.activity.ContectusActivity"
             android:label="Contact us"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.NotificationActivity"
+            android:name="com.tiendaumk.activity.NotificationActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.ItemDetailsActivity"
+            android:name="com.tiendaumk.activity.ItemDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.SelectAreaActivity"
+            android:name="com.tiendaumk.activity.SelectAreaActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.InfoActivity"
+            android:name="com.tiendaumk.activity.InfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.ForgotActivity"
+            android:name="com.tiendaumk.activity.ForgotActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.MyOrderListActivity"
+            android:name="com.tiendaumk.activity.MyOrderListActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.ProfileActivity"
-            android:label="My Profile"
+            android:name="com.tiendaumk.activity.ProfileActivity"
+            android:label="Mi Perfil"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.AddressActivity"
-            android:label="My Address"
+            android:name="com.tiendaumk.activity.AddressActivity"
+            android:label="Mis Dirección"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.FeedBackActivity"
+            android:name="com.tiendaumk.activity.FeedBackActivity"
             android:label="FeedBack"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.RatesActivity"
+            android:name="com.tiendaumk.activity.RatesActivity"
             android:label="Rate us"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.HomeActivity"
+            android:name="com.tiendaumk.activity.HomeActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.SingActivity"
+            android:name="com.tiendaumk.activity.SingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="com.tiendaumk.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.FirstActivity"
+            android:name="com.tiendaumk.activity.FirstActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             tools:ignore="LockedOrientationActivity">
@@ -122,26 +139,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.PopRatesActivity"
+            android:name="com.tiendaumk.activity.PopRatesActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.RazerpayActivity"
+            android:name="com.tiendaumk.activity.RazerpayActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.tiendaumk.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.NotificationDetailsActivity"
+            android:name="com.tiendaumk.activity.NotificationDetailsActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".activity.VerifyPhoneActivity"
+            android:name="com.tiendaumk.activity.VerifyPhoneActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+        <service android:name="com.tiendaumk.notification.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.tiendaumk.notification.NotificationExtenderExample"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationExtender" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

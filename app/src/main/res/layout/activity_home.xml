@@ -101,7 +101,32 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Ordenes"
+                            android:text="Mis Pedidos"
+                            android:textColor="@color/colorBalck"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/MisConsumosr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:onClick="ClickNavigation"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_attach_money" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:text="Saldos de Facturas"
                             android:textColor="@color/colorBalck"
                             android:textStyle="bold" />
 
@@ -127,7 +152,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
-                            android:text="Mi Direcciones"
+                            android:text=" Direcciones de Entrega"
                             android:textColor="@color/colorBalck"
                             android:textStyle="bold" />
 
@@ -272,6 +297,7 @@
                         android:layout_height="50dp" />
 
                     <LinearLayout
+                        android:visibility="invisible"
                         android:id="@+id/about"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -311,6 +337,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+
                         android:id="@+id/privecy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -318,7 +345,7 @@
                         android:onClick="ClickNavigation"
                         android:orientation="horizontal"
                         android:padding="5dp"
-                        android:visibility="visible">
+                        android:visibility="invisible">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -331,11 +358,12 @@
                     </LinearLayout>
 
                     <LinearLayout
+
                         android:id="@+id/termcondition"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:visibility="visible"
+                        android:visibility="invisible"
                         android:onClick="ClickNavigation"
                         android:orientation="horizontal"
                         android:padding="5dp">
@@ -349,7 +377,28 @@
                             android:textColor="@color/colorBalck" />
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/spacing_xxlarge"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+
+                            android:textAlignment="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:padding="5dp"
+                            android:text="v1.5.22.2"
+                            android:textColor="@color/colorBalck" />
+
+                    </LinearLayout>
                 </LinearLayout>
+
             </LinearLayout>
 
         </ScrollView>

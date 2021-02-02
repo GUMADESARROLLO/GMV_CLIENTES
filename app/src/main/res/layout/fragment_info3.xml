@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    tools:context="com.freshfastfood.fragment.Info1Fragment">
+    tools:context="com.tiendaumk.fragment.Info1Fragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
