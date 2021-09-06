@@ -19,12 +19,23 @@ public class ResultHome {
     @SerializedName("dynamic_section")
     private List<DynamicData> dynamicData;
 
+    @SerializedName("programa_creci")
+    private String mprograma_creci;
+
     @SerializedName("Remain_notification")
     private int remainNotification;
 
     @SerializedName("Main_Data")
     @Expose
     private MainDataHome mainData;
+
+    public String getMprograma_creci() {
+        return mprograma_creci;
+    }
+
+    public void setMprograma_creci(String mprograma_creci) {
+        this.mprograma_creci = mprograma_creci;
+    }
 
     public MainDataHome getMainData() {
         return mainData;

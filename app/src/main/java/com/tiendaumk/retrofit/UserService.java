@@ -21,8 +21,14 @@ public interface UserService {
     @POST(APIClient.APPEND_URL + "home.php")
     Call<JsonObject> getHome(@Body JsonObject object);
 
+    @POST(APIClient.APPEND_URL + "perfil_upc.php")
+    Call<JsonObject> getHome_crecimiento(@Body JsonObject object);
+
     @POST(APIClient.APPEND_URL + "login.php")
     Call<JsonObject> getLogin(@Body JsonObject object);
+
+    @POST(APIClient.APPEND_URL + "validar_cupones.php")
+    Call<JsonObject> getValidarCupones(@Body JsonObject object);
 
     @POST(APIClient.APPEND_URL + "forgot.php")
     Call<JsonObject> getForgot(@Body JsonObject object);

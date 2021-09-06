@@ -58,7 +58,7 @@ public class NotificationExtenderExample extends NotificationExtenderService {
 
         NotificationChannel mChannel;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Tienda UNIMARK";// The user-visible name of the channel.
+            CharSequence name = "UNIMARK S,A.";// The user-visible name of the channel.
             int importance = NotificationManager.IMPORTANCE_HIGH;
             mChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance);
             mNotificationManager.createNotificationChannel(mChannel);

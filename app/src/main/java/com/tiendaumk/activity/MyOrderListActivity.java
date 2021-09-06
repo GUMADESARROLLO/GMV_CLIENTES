@@ -48,7 +48,7 @@ import retrofit2.Call;
 import static com.tiendaumk.utils.SessionManager.currncy;
 import static com.tiendaumk.utils.Utiles.isrates;
 
-public class MyOrderListActivity extends BaseActivity implements GetResult.MyListener {
+public class    MyOrderListActivity extends BaseActivity implements GetResult.MyListener {
 
     User user;
     SessionManager sessionManager;
@@ -73,6 +73,11 @@ public class MyOrderListActivity extends BaseActivity implements GetResult.MyLis
     @BindView(R.id.edt_order_list)
     TextView txt_order_list;
 
+    @BindView(R.id.id_txt_descuento)
+    TextView txtDescuento;
+
+    @BindView(R.id.id_txt_porcent)
+    TextView txtPorcent;
 
 
     @BindView(R.id.txt_qty)
@@ -90,6 +95,7 @@ public class MyOrderListActivity extends BaseActivity implements GetResult.MyLis
     @BindView(R.id.txt_Address)
     TextView txtAddress;
     String phonecall;
+
   /*  @BindView(R.id.time_view)
     StateProgressBar timeView;*/
     CustPrograssbar custPrograssbar;
@@ -164,10 +170,17 @@ public class MyOrderListActivity extends BaseActivity implements GetResult.MyLis
                     txtQty.setText(list.size()  + " Item(s)");
                     txtAddress.setText("" + myOrder.getAddress());
 
-                    txtTax.setText(sessionManager.getStringData(currncy) + myOrder.getTax());
+                    txtTax.setText(sessionManager.getStringData(currncy) + new DecimalFormat(" ###,###.##").format(myOrder.getTax()));
 
-                    txtSubtotal.setText("" + sessionManager.getStringData(currncy) + new DecimalFormat("##.##").format(myOrder.getSubTotal()));
-                    txtTotal.setText("" + sessionManager.getStringData(currncy) + new DecimalFormat("##.##").format(myOrder.getTotalAmt()));
+                    txtSubtotal.setText("" + sessionManager.getStringData(currncy) + new DecimalFormat(" ###,###.##").format(myOrder.getSubTotal()));
+                    txtTotal.setText("" + sessionManager.getStringData(currncy) + new DecimalFormat(" ###,###.##").format(myOrder.getTotalAmt()));
+
+                    txtDescuento.setText("" + sessionManager.getStringData(currncy) + new DecimalFormat(" ###,###.##").format(Double.parseDouble(myOrder.getpMethod())));
+
+                    txtPorcent.setText(myOrder.getdCharge());
+
+                    Log.e("TAG_error", "callback: " + myOrder.getpMethod() );
+
                     oid = myOrder.getmOrderid();
 
                     Log.e("TAG", "callback: " + myOrder.getStatus() );
@@ -245,11 +258,14 @@ public class MyOrderListActivity extends BaseActivity implements GetResult.MyLis
 
 
                 double Total_linea = (Double.parseDouble(list.get(i).getProductPrice()) * Double.parseDouble(list.get(i).getProductQty()));
-                txt_weight.setText(sessionManager.getStringData(currncy).concat(String.valueOf(Total_linea)));
+                txt_weight.setText(sessionManager.getStringData(currncy).concat(new DecimalFormat(" ###,###.##").format(Total_linea) ));
 
                 double ress = (Double.parseDouble(list.get(i).getProductPrice()) * list.get(i).getDiscount()) / 100;
                 ress = Double.parseDouble(list.get(i).getProductPrice()) - ress;
-                txt_price.setText(sessionManager.getStringData(currncy) + ress + " X " + list.get(i).getProductQty());
+
+
+
+                txt_price.setText(sessionManager.getStringData(currncy) +  new DecimalFormat(" ###,###.##").format(ress) + " X " + list.get(i).getProductQty());
                 lnrView.addView(view);
             }
         }

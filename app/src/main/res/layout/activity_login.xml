@@ -155,7 +155,7 @@
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="v1.5.22.2"
+                android:text="v1.5.22.5"
                 android:textColor="@color/colorGrey2" />
 
             <TextView

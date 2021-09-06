@@ -8,11 +8,6 @@
     android:background="@color/grey_soft"
     android:fillViewport="true"
     tools:context=".fragment.OrderSumrryFragment">
-
-
-
-
-
     <LinearLayout
 
         android:layout_width="match_parent"
@@ -190,7 +185,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/txt_address"
                 android:text="DIRECCION SUPER LARGA PARA QUE MIRE SUPER GUAY"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -293,6 +288,46 @@
                 app:fontFamily="sans-serif-medium" />
 
         </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_10" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/spacing_large">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Descuento"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/grey_40"
+            app:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:id="@+id/id_porcent_descuento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_mlarge"
+            android:text="  "
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/grey_90"
+            app:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:id="@+id/txt_descuentos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.00 "
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/grey_90"
+            app:fontFamily="sans-serif-medium" />
+
+    </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -331,6 +366,7 @@
             android:background="@color/grey_10" />
 
 
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_cuntinus"
             android:layout_width="match_parent"
@@ -341,6 +377,61 @@
             android:paddingRight="@dimen/spacing_mlarge"
             android:text="PROCESAR PEDIDO"
             android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_large">
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="El subtotal no incluye los impuestos correspondientes"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/grey_40"
+            app:fontFamily="sans-serif-medium" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lbl_titulo_codigo"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="¿Cuentas con un código de promoción? "
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/grey_40"
+                app:fontFamily="sans-serif-medium" />
+
+
+            <TextView
+                android:layout_marginEnd="@dimen/spacing_mxlarge"
+                android:id="@+id/txt_id_cupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" "
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/grey_90"
+                app:fontFamily="sans-serif-medium" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_10" />
+
 </LinearLayout>
     </LinearLayout>
 

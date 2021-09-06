@@ -27,6 +27,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,8 +77,11 @@ public class ReletedItemAllAdp extends RecyclerView.Adapter<ReletedItemAllAdp.Vi
 
             double res = (Double.parseDouble(datum.getPrice().get(0).getProductPrice()) / 100.0f) * datum.getmDiscount();
             res = Double.parseDouble(datum.getPrice().get(0).getProductPrice()) - res;
-            holder.priceoofer.setText(sessionManager.getStringData(currncy) + datum.getPrice().get(0).getProductPrice());
-            holder.txtPrice.setText(sessionManager.getStringData(currncy)  + new DecimalFormat("##.##").format(res));
+
+            String _price = String.format(Locale.ENGLISH, "%1$,.2f", Double.parseDouble(datum.getPrice().get(0).getProductPrice()));
+
+            holder.priceoofer.setText(sessionManager.getStringData(currncy) +  _price);
+            holder.txtPrice.setText(sessionManager.getStringData(currncy)  + new DecimalFormat("###,###.##").format(res));
             holder.txtStock.setText("Stock: ".concat(sessionManager.getStringData(currncy)  + datum.getStock()));
             holder.lvlOffer.setVisibility(View.VISIBLE);
             holder.txtOffer.setText(datum.getmDiscount() + "% Desc");
@@ -115,6 +119,7 @@ public class ReletedItemAllAdp extends RecyclerView.Adapter<ReletedItemAllAdp.Vi
                     myCart.setReglas(datum.getmbonificado());
                     myCart.setBonifi(getBonificado(datum.getmbonificado(),1));
                     myCart.setIva(datum.getmIva());
+                    myCart.setCat(datum.getmCategoria());
                     Log.e("INsert", "--> " + helper.insertData(myCart));
                     holder.lvlCardbg.setBackground(mContext.getResources().getDrawable(R.drawable.bg_red_shape));
                     holder.imgCard.setImageDrawable(mContext.getDrawable(R.drawable.ic_minus_rounded));

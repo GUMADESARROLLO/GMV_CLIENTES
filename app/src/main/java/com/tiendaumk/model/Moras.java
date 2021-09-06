@@ -1,19 +1,47 @@
 package com.tiendaumk.model;
 
+import com.google.gson.annotations.SerializedName;
+
+@SuppressWarnings("unused")
 public class Moras {
+
+    @SerializedName("NoVencidos")
     String NoVencidos;
+
+    @SerializedName("Vencidos")
     String Vencidos;
+
+    @SerializedName("Dias30")
     String Dias30;
+
+    @SerializedName("Dias60")
     String Dias60;
+
+    @SerializedName("Dias90")
     String Dias90;
+
+    @SerializedName("Dias120")
     String Dias120;
+
+    @SerializedName("Mas120")
     String Mas120;
+
+    @SerializedName("FACT_PEND")
     String FACT_PEND;
 
+    @SerializedName("NombreCliente")
     String NombreCliente;
+
+    @SerializedName("Limite")
     String Limite;
+
+    @SerializedName("Saldo")
     String Saldo;
+
+    @SerializedName("Disponible")
     String Disponible;
+
+    @SerializedName("Moroso")
     String Moroso;
 
     public String getMoroso() {

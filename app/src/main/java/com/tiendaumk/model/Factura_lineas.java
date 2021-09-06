@@ -1,12 +1,27 @@
 package com.tiendaumk.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Factura_lineas {
+    @SerializedName("ARTICULO")
     String ARTICULO;
+
+    @SerializedName("DESCRIPCION")
     String DESCRIPCION;
+
+    @SerializedName("CANTIDAD")
     String CANTIDAD;
+
+    @SerializedName("VENTA")
     String VENTA;
+
+    @SerializedName("FECHA")
     String FECHA;
+
+    @SerializedName("IMAGEN")
     String IMAGEN;
+
+    @SerializedName("OBSERVACIONES")
     String OBSERVACIONES;
 
     public String getOBSERVACIONES() {

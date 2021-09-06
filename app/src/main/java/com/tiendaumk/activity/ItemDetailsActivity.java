@@ -1,18 +1,24 @@
 package com.tiendaumk.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -36,6 +42,7 @@ import com.tiendaumk.model.ProductItem;
 import com.tiendaumk.utils.SessionManager;
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -107,8 +114,10 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
         if (productItem != null) {
 
+            double res = (Double.parseDouble(String.valueOf(productItem.getStock())));
+
             txtTitle.setText("" + productItem.getProductName());
-            txtDesc.setText("Stock: " + productItem.getStock());
+            txtDesc.setText("Stock: " + new DecimalFormat("###,###.##").format(res));
             txtSeler.setText("" + productItem.getSellerName());
 
 
@@ -127,6 +136,10 @@ public class ItemDetailsActivity extends AppCompatActivity {
         rcViewBnfc.setLayoutManager(new GridLayoutManager(getApplicationContext(), 4));
         rcBonificado = new AdapterBonificado(this, sList);
         rcViewBnfc.setAdapter(rcBonificado);
+
+
+
+
 
 
         webview_product_description.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -158,10 +171,14 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 if (productItem.getmDiscount() > 0) {
                     double res = (Double.parseDouble(priceslist.get(position).getProductPrice()) / 100.0f) * productItem.getmDiscount();
                     res = Double.parseDouble(priceslist.get(position).getProductPrice()) - res;
+
+                    
                     txtItemOffer.setText(sessionManager.getStringData(currncy) + priceslist.get(position).getProductPrice());
                     txtItemOffer.setPaintFlags(txtItemOffer.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
                     String price = String.format(Locale.ENGLISH, "%1$,.2f", res);
                     txtPrice.setText(sessionManager.getStringData(currncy)  + price );
+
                     txtItemOffer.setText(sessionManager.getStringData(currncy) + priceslist.get(position).getProductPrice());
                 } else {
                     txtItemOffer.setVisibility(View.GONE);
@@ -265,12 +282,68 @@ public class ItemDetailsActivity extends AppCompatActivity {
                     myCart.setReglas(datum.getmbonificado());
                     myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
                     myCart.setIva(datum.getmIva());
-
+                    myCart.setCat(datum.getmCategoria());
                     helper.insertData(myCart);
                 }
                 updateItem();
                 if (itemListFragment != null)
                     itemListFragment.updateItem();
+            }
+        });
+        img_plus.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+
+
+                final Dialog dialog = new Dialog(context);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+                dialog.setContentView(R.layout.dialog_input_cant);
+                dialog.setCancelable(true);
+
+                LinearLayout lyt = dialog.findViewById(R.id.lyt);
+                TextView txt_title = dialog.findViewById(R.id.title);
+                EditText txt_msg = dialog.findViewById(R.id.ed_titulo);
+
+                txt_title.setText("Cantidad Personalizada");
+              //  txt_msg.setText(strMsg);
+                lyt.setBackgroundColor(context.getResources().getColor(R.color.light_green_400));;
+
+
+
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                lp.copyFrom(dialog.getWindow().getAttributes());
+                lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+
+                (dialog.findViewById(R.id.bt_close)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        lvl_addcart.setVisibility(View.GONE);
+                        lvl_addremove.setVisibility(View.VISIBLE);
+                        count[0] = Integer.parseInt(txt_msg.getText().toString());
+
+
+                        txtcount.setText("" + count[0]);
+                        myCart.setQty(String.valueOf(count[0]));
+                        myCart.setReglas(datum.getmbonificado());
+                        myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
+                        myCart.setIva(datum.getmIva());
+                        myCart.setCat(datum.getmCategoria());
+                        Log.e("INsert", "--> " + helper.insertData(myCart));
+                        updateItem();
+                        if (itemListFragment != null)
+                            itemListFragment.updateItem();
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+                dialog.getWindow().setAttributes(lp);
+
+
+                return false;
             }
         });
 
@@ -290,6 +363,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 myCart.setReglas(datum.getmbonificado());
                 myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
                 myCart.setIva(datum.getmIva());
+                myCart.setCat(datum.getmCategoria());
                 Log.e("INsert", "--> " + helper.insertData(myCart));
                 updateItem();
                 if (itemListFragment != null)
@@ -313,19 +387,59 @@ public class ItemDetailsActivity extends AppCompatActivity {
                     myCart.setReglas(datum.getmbonificado());
                     myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
                     myCart.setIva(datum.getmIva());
+                    myCart.setCat(datum.getmCategoria());
                     Log.e("INsert", "--> " + helper.insertData(myCart));
                     updateItem();
                     if (itemListFragment != null)
                         itemListFragment.updateItem();
-                }
+                    }
                 }
 
 
 
         });
+
+        rcViewBnfc.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                final String str_bonificado =  sList.get(position);
+                final List<String> row_arr = new ArrayList<>();
+
+                row_arr.add(Arrays.asList(str_bonificado.replace("+", ",").split(",")).get(0));
+
+
+                if (!str_bonificado.equalsIgnoreCase("0")) {
+
+                    double cnt_valor = Double.parseDouble(row_arr.get(0));
+                    double cant_stock = (Double.parseDouble(String.valueOf(productItem.getStock())));
+
+                    if (cnt_valor > cant_stock){
+                        Toast.makeText(context, "El Stock no es suficiente", Toast.LENGTH_SHORT).show();
+                    }else{
+                        lvl_addcart.setVisibility(View.GONE);
+                        lvl_addremove.setVisibility(View.VISIBLE);
+                        count[0] = Integer.parseInt(txtcount.getText().toString());
+                        count[0] = count[0] + Integer.parseInt(row_arr.get(0));
+                        txtcount.setText("" + count[0]);
+                        myCart.setQty(String.valueOf(count[0]));
+                        myCart.setReglas(datum.getmbonificado());
+                        myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
+                        myCart.setIva(datum.getmIva());
+                        myCart.setCat(datum.getmCategoria());
+                        Log.e("INsert", "--> " + helper.insertData(myCart));
+                        updateItem();
+                        if (itemListFragment != null)
+                            itemListFragment.updateItem();
+                    }
+                    //String _cnt_valor = String.format(Locale.ENGLISH, "%1$,.0f", cnt_valor);
+                }
+            }
+        }));
         lnrView.addView(view);
 
     }
+
+
 
     public String getBonificado(String Bonificado,int Cantidad){
 
@@ -344,6 +458,43 @@ public class ItemDetailsActivity extends AppCompatActivity {
         }
 
 
+    }
+    class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+        private GestureDetector gestureDetector;
+        private ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final ClickListener clickListener) {
+
+            this.clickListener = clickListener;
+
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child = rcViewBnfc.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildAdapterPosition(child));
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
     }
 
     public void fragment() {

@@ -66,6 +66,12 @@ import static com.tiendaumk.utils.SessionManager.razKey;
 import static com.tiendaumk.utils.SessionManager.tax;
 import static com.tiendaumk.utils.SessionManager.tremcodition;
 import static com.tiendaumk.utils.Utiles.productItems;
+import static com.tiendaumk.utils.Utiles.dynamicDataList;
+
+import static com.tiendaumk.activity.HomeActivity.idppU;
+
+
+
 
 
 public class HomeFragment extends Fragment implements CategoryAdp.RecyclerTouchListener, ReletedItemAdp.ItemClickListener, GetResult.MyListener, ReletedItemDaynamicAdp.ItemClickListener {
@@ -88,7 +94,7 @@ public class HomeFragment extends Fragment implements CategoryAdp.RecyclerTouchL
     public  HomeFragment homeListFragment;
     SessionManager sessionManager;
     User user;
-    List<DynamicData> dynamicDataList = new ArrayList<>();
+
     ReletedItemAdp reletedItemAdp;
 
     LinearLayout lyRelevantes;
@@ -100,8 +106,7 @@ public class HomeFragment extends Fragment implements CategoryAdp.RecyclerTouchL
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this, view);
         bannerDatumList = new ArrayList<>();
@@ -132,12 +137,25 @@ public class HomeFragment extends Fragment implements CategoryAdp.RecyclerTouchL
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             View view = inflater.inflate(R.layout.list_home_item, null);
             TextView itemTitle = view.findViewById(R.id.itemTitle);
+            TextView btnViewAll = view.findViewById(R.id.txt_viewllHistory);
             RecyclerView recycler_view_list = view.findViewById(R.id.recycler_view_list);
+
             itemTitle.setText(dataList.get(i).getTitle());
             ReletedItemDaynamicAdp itemAdp = new ReletedItemDaynamicAdp(mContext, dataList.get(i).getDynamicItems(), this);
-            recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+
+            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(mContext, 2);
+            recycler_view_list.setLayoutManager(mLayoutManager);
+            //recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
             recycler_view_list.setAdapter(itemAdp);
             lnrView.addView(view);
+
+            btnViewAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    HomeActivity.getInstance().callFragment(new HistorialFragment());
+                }
+            });
         }
     }
     @Override
@@ -178,6 +196,7 @@ public class HomeFragment extends Fragment implements CategoryAdp.RecyclerTouchL
                 PopularFragment fragmentp = new PopularFragment();
                 HomeActivity.getInstance().callFragment(fragmentp);
                 break;
+
             default:
 
                 break;
@@ -254,7 +273,7 @@ public class HomeFragment extends Fragment implements CategoryAdp.RecyclerTouchL
         HomeActivity.getInstance().setFrameMargin(60);
         HomeActivity.getInstance().serchviewShow();
         if (user != null)
-            HomeActivity.getInstance().titleChange("Hola " + user.getName());
+            HomeActivity.getInstance().titleChange("UNIMARK S,A.");
 
         if (dynamicDataList != null) {
             setJoinPlayrList(lvlSelected, dynamicDataList);
@@ -298,6 +317,15 @@ public class HomeFragment extends Fragment implements CategoryAdp.RecyclerTouchL
 
                 reletedItemAdp = new ReletedItemAdp(mContext, home.getResultHome().getProductItems(), this);
                 recyclerReleted.setAdapter(reletedItemAdp);
+
+
+
+                if (home.getResultHome().getMprograma_creci().equals("N")) {
+                    idppU.setVisibility(View.GONE);
+                } else {
+                    idppU.setVisibility(View.VISIBLE);
+                }
+
                 if (home.getResultHome().getRemainNotification() <= 0) {
                     txtNoti.setVisibility(View.GONE);
                 } else {

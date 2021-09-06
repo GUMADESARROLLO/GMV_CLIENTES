@@ -1,8 +1,13 @@
 package com.tiendaumk.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Facturas_mora {
+    @SerializedName("Codigo")
     String Codigo;
+    @SerializedName("Saldo")
     String Saldo;
+    @SerializedName("Fecha")
     String Fecha;
 
     public Facturas_mora(){

@@ -10,7 +10,7 @@
     <color name="colorBalck">#1d2021</color>
     <color name="colorRad">#d71c32</color>
     <color name="colorTranfar">#7FFBFAFA</color>
-
+    <color name="blue_grey_500">#607D8B</color>
     <color name="grey_soft">#ededed</color>
     <color name="grey_3">#f7f7f7</color>
     <color name="grey_4">#F1F1F1</color>
@@ -52,5 +52,10 @@
     <color name="blue_A400">#2979FF</color>
     <color name="blue_A700">#2962FF</color>
 
+    <color name="orange_50">#FFF3E0</color>
+    <color name="orange_500">#FF9800</color>
+    <color name="deep_orange_500">#FF5722</color>
+    <color name="deep_orange_600">#F4511E</color>
+    <color name="purple_500">#9C27B0</color>
 
 </resources>

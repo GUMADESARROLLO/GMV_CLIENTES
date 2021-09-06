@@ -1,23 +1,55 @@
 package com.tiendaumk.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ProductNoFacturado {
 
-
+    @SerializedName("product_id")
     private String product_id;
+
+    @SerializedName("product_name")
     private String product_name;
+
+    @SerializedName("category_id")
     private String category_id;
+
+    @SerializedName("category_name")
     private String category_name;
+
+    @SerializedName("product_price")
     private double product_price;
+
+    @SerializedName("product_status")
     private String product_status;
+
+    @SerializedName("product_image")
     private String product_image;
+
+    @SerializedName("product_description")
     private String product_description;
+
+    @SerializedName("currency_code")
     private String currency_code;
+
+    @SerializedName("product_bonificado")
     private String product_bonificado;
+
+    @SerializedName("product_lotes")
     private String product_lotes;
+
+    @SerializedName("product_und")
     private String product_und;
+
+    @SerializedName("CALIFICATIVO")
     private String CALIFICATIVO;
+
+    @SerializedName("ISPROMO")
     private String ISPROMO;
+
+    @SerializedName("tax")
     private double tax;
+
+    @SerializedName("product_quantity")
     private double product_quantity;
 
     public String getISPROMO() {

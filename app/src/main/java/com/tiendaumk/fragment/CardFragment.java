@@ -223,10 +223,10 @@ public class CardFragment extends Fragment {
             res = Double.parseDouble(cart.getCost()) - res;
 
             holder.txtGram.setText("  " + cart.getWeight() + "  ");
-            holder.txtPrice.setText(sessionManager.getStringData(currncy) + new DecimalFormat(" ##.##").format(res * Double.parseDouble(cart.getQty())));
+            holder.txtPrice.setText(sessionManager.getStringData(currncy) + new DecimalFormat(" ###,###.##").format(res * Double.parseDouble(cart.getQty())));
             holder.txtTitle.setText("" + cart.getTitle());
             holder.txtBonificado.setText(cart.bonifi);
-            holder.txtcantidad.setText((sessionManager.getStringData(currncy)).concat(new DecimalFormat(" ##.##").format(res)));
+            holder.txtcantidad.setText((sessionManager.getStringData(currncy)).concat(new DecimalFormat(" ###,###.##").format(res)));
 
             MyCart myCart = new MyCart();
             myCart.setPid(cart.getPid());
@@ -440,9 +440,9 @@ public class CardFragment extends Fragment {
         monto_total_final = Double.parseDouble(String.valueOf(var_monto_final));
 
         //txtItem.setText(totalItem + " Items");
-        txtvalor_iva.setText(sessionManager.getStringData(currncy) + new DecimalFormat(" ##.##").format(totalRsIva) );
-        totleAmount.setText(sessionManager.getStringData(currncy) + new DecimalFormat(" ##.##").format(totalRs));
-        monto_final.setText(sessionManager.getStringData(currncy) + new DecimalFormat(" ##.##").format(var_monto_final));
+        txtvalor_iva.setText(sessionManager.getStringData(currncy) + new DecimalFormat(" ###,###.##").format(totalRsIva) );
+        totleAmount.setText(sessionManager.getStringData(currncy) + new DecimalFormat(" ###,###.##").format(totalRs));
+        monto_final.setText(sessionManager.getStringData(currncy) + new DecimalFormat(" ###,###.##").format(var_monto_final));
         HomeActivity.getInstance().setFrameMargin(60);
 
 

@@ -148,7 +148,7 @@ public class ItemListFragment extends Fragment implements GetResult.MyListener {
                 }
 
                 txtItem.setText(totalItem + " Items");
-                txtPrice.setText(sessionManager.getStringData(currncy) + new DecimalFormat("##.##").format(totalRs));
+                txtPrice.setText(sessionManager.getStringData(currncy) + " " + new DecimalFormat("###,###.##").format(totalRs));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -245,4 +245,9 @@ public class ItemListFragment extends Fragment implements GetResult.MyListener {
         CardFragment fragment = new CardFragment();
         HomeActivity.getInstance().callFragment(fragment);
     }
+
+
+
+
+
 }

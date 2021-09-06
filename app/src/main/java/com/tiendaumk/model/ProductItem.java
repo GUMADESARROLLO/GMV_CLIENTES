@@ -36,6 +36,9 @@ public class ProductItem implements Parcelable {
     @SerializedName("bonificado")
     private String mbonificado;
 
+    @SerializedName("Categoria")
+    private String mCategoria;
+
 
     protected ProductItem(Parcel in) {
         mId = in.readString();
@@ -48,6 +51,15 @@ public class ProductItem implements Parcelable {
         mDiscount = in.readInt();
         mbonificado = in.readString();
         mIva = in.readInt();
+        mCategoria = in.readString();
+    }
+
+    public String getmCategoria() {
+        return mCategoria;
+    }
+
+    public void setmCategoria(String mCategoria) {
+        this.mCategoria = mCategoria;
     }
 
     public String getmbonificado() {
@@ -168,5 +180,6 @@ public class ProductItem implements Parcelable {
         dest.writeInt(mDiscount);
         dest.writeString(mbonificado);
         dest.writeInt(mIva);
+        dest.writeString(mCategoria);
     }
 }

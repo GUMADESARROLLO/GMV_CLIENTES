@@ -2,8 +2,6 @@ package com.tiendaumk.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,7 +9,6 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -20,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,7 +29,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.tiendaumk.MyApplication;
 import com.tiendaumk.adepter.AdapterPerfilLotes;
 import com.tiendaumk.model.Facturas_mora;
 
@@ -52,6 +47,7 @@ import java.util.List;
 
 
 public class ActivityPerfilCliente extends AppCompatActivity {
+
     TextView txt_perfil_name_cliente,txt_perfil_disponible,txt_perfil_saldo,txt_perfil_limite;
     TextView txt_perfil_noVencido,txt_perfil_d30,txt_perfil_d60,txt_perfil_d90,txt_perfil_d120,txt_perfil_m120;
     TextView txt_tele,txt_condicion_pago;
@@ -61,6 +57,7 @@ public class ActivityPerfilCliente extends AppCompatActivity {
     public static ArrayList<String> factura_date = new ArrayList<String>();
     public static ArrayList<String> factura_cant = new ArrayList<String>();
     public static ArrayList<String> factura_monto = new ArrayList<String>();
+
     View lyt_empty_history;
     RecyclerView recyclerView;
     AdapterPerfilLotes recyclerAdaptePerfilFactura;
@@ -204,7 +201,7 @@ public class ActivityPerfilCliente extends AppCompatActivity {
     }
 
     private void fetchData() {
-        RequestQueue queue = Volley.newRequestQueue(this);
+        RequestQueue queue = Volley.newRequestQueue(ActivityPerfilCliente.this);
         JsonArrayRequest request = new JsonArrayRequest(Constant.GET_PROFIL_USER + code_cliente, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -213,8 +210,12 @@ public class ActivityPerfilCliente extends AppCompatActivity {
                     return;
                 }
 
+
+
                 List<Moras> items = new Gson().fromJson(response.toString(), new TypeToken<List<Moras>>() {
                 }.getType());
+
+
 
                 if (items.size() > 0) {
                     lyt_empty_history.setVisibility(View.GONE);
@@ -271,7 +272,7 @@ public class ActivityPerfilCliente extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // error in getting json
+                Toast.makeText(ActivityPerfilCliente.this, "onErrorResponse", Toast.LENGTH_SHORT).show();
                 Log.e("INFO", "Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }

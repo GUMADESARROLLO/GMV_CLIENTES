@@ -9,14 +9,14 @@
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/txt_titel"
-        android:padding="5dp"
-        android:textSize="21dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="8dp"
-        android:textColor="@color/colorBalck"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/coresans_cr_medium"
-        android:layout_height="wrap_content"/>
+        android:padding="5dp"
+        android:textColor="@color/colorBalck"
+        android:textSize="21dp" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

@@ -23,14 +23,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String ICOL_9 = "reglas";
     public static final String ICOL_10 = "Boni";
     public static final String ICOL_11 = "Iva";
+    public static final String ICOL_12 = "Cat";
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 3);
+        super(context, DATABASE_NAME, null, 4);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, PID TEXT , image TEXT ,title TEXT , weight TEXT , cost TEXT, qty TEXT , discount int, reglas TEXT, Boni TEXT, Iva TEXT )");
+        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, PID TEXT , image TEXT ,title TEXT , weight TEXT , cost TEXT, qty TEXT , discount int, reglas TEXT, Boni TEXT, Iva TEXT, Cat TEXT )");
     }
 
     @Override
@@ -54,6 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(ICOL_9, rModel.getReglas());
             contentValues.put(ICOL_10, rModel.getBonifi());
             contentValues.put(ICOL_11, rModel.getIva());
+            contentValues.put(ICOL_12, rModel.getCat());
 
             Log.e("INsert", "--> " + rModel.getIva());
             long result = db.insert(TABLE_NAME, null, contentValues);
@@ -92,6 +94,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
         return res;
     }
+
+    public Cursor getData_Categorias(String cadena) {
+        Cursor res;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        if (cadena.equals("")){
+            res = db.rawQuery("SELECT "+ ICOL_12 + ", sum(" + ICOL_7 + "*" + ICOL_6 + ") as Suma FROM " + TABLE_NAME + " GROUP BY " + ICOL_12,  null);
+        }else{
+            res = db.rawQuery("SELECT "+ ICOL_12 + ", sum(" + ICOL_7 + "*" + ICOL_6 + ") as Suma FROM " + TABLE_NAME + " WHERE "+ ICOL_2 + " IN ("+ cadena + ") GROUP BY " + ICOL_12,  null);
+        }
+
+        return res;
+    }
+
 
     public boolean updateData(String id, String cost, String status,String Bonificado) {
         SQLiteDatabase db = this.getWritableDatabase();

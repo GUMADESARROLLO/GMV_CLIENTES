@@ -15,7 +15,6 @@ public class Home {
     private String mResponseMsg;
     @SerializedName("Result")
     private String mResult;
-
     @SerializedName("ResultData")
     @Expose
     private ResultHome resultData;

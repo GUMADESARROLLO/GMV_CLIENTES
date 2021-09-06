@@ -16,11 +16,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -109,6 +109,10 @@ public class HomeActivity extends AppCompatActivity {
     LinearLayout privecy;
     @BindView(R.id.termcondition)
     LinearLayout termcondition;
+
+    @BindView(R.id.id_Help)
+    LinearLayout lly_Help;
+
     @BindView(R.id.drawer)
     LinearLayout drawer;
     @BindView(R.id.rlt_cart)
@@ -119,6 +123,11 @@ public class HomeActivity extends AppCompatActivity {
     TextView txtCountcard;
     @BindView(R.id.img_noti)
     ImageView imgNoti;
+
+
+    public static CardView idppU;
+
+
     User user;
     public static  TextView txt_countcard;
     public static HomeActivity homeActivity = null;
@@ -134,6 +143,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         txtNoti = findViewById(R.id.txt_noti);
+        idppU = findViewById(R.id.id_ppu);
         custPrograssbar = new CustPrograssbar();
         databaseHelper = new DatabaseHelper(HomeActivity.this);
         sessionManager = new SessionManager(HomeActivity.this);
@@ -176,7 +186,14 @@ public class HomeActivity extends AppCompatActivity {
         txtEmail.setText("" + user.getEmail());
         txtCodClient.setText("" + user.getCodclient());
 
-
+        idppU.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(HomeActivity.this, TabsLight.class);
+                i.putExtra("Client_Code", user.getCodclient());
+                startActivity(i);
+            }
+        });
 
 
         titleChange();
@@ -306,7 +323,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void titleChange() {
-        txtActiontitle.setText("Hola " + user.getName());
+        txtActiontitle.setText("UNIMARK S,A.");
     }
 
 
@@ -331,7 +348,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    @OnClick({R.id.MisConsumosr,R.id.img_close, R.id.myprofile, R.id.myoder, R.id.address, R.id.feedback, R.id.contect, R.id.logout, R.id.about, R.id.privecy, R.id.img_search, R.id.img_cart, R.id.img_noti, R.id.lvl_home, R.id.share, R.id.termcondition})
+    @OnClick({R.id.id_Help,R.id.ItemAll,R.id.MisConsumosr,R.id.img_close, R.id.myprofile, R.id.myoder, R.id.address, R.id.feedback, R.id.contect, R.id.logout, R.id.about, R.id.privecy, R.id.img_search, R.id.img_cart, R.id.img_noti, R.id.lvl_home, R.id.share, R.id.termcondition})
     public void onViewClicked(View view) {
         Fragment fragment;
         Bundle args;
@@ -359,6 +376,23 @@ public class HomeActivity extends AppCompatActivity {
 
                 if (sessionManager.getBooleanData(login)) {
                     startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+
+                } else {
+                    startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                }
+                break;
+            case R.id.ItemAll:
+                titleChange();
+
+                if (sessionManager.getBooleanData(login)) {
+
+                    args = new Bundle();
+                    args.putInt("id", 0);
+                    args.putString("search", "a");
+                    fragment = new ItemListFragment();
+                    fragment.setArguments(args);
+                    callFragment(fragment);
+
 
                 } else {
                     startActivity(new Intent(HomeActivity.this, LoginActivity.class));
@@ -456,6 +490,10 @@ public class HomeActivity extends AppCompatActivity {
                 titleChange();
 
                 startActivity(new Intent(HomeActivity.this, TramsAndConditionActivity.class));
+                break;
+
+            case R.id.id_Help:
+                startActivity(new Intent(HomeActivity.this, PrivecyPolicyActivity.class));
                 break;
             default:
                 break;

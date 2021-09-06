@@ -13,6 +13,16 @@ public class MyCart {
     public int discount;
     public int iva;
 
+    public String Cat;
+
+    public String getCat() {
+        return Cat;
+    }
+
+    public void setCat(String cat) {
+        Cat = cat;
+    }
+
     public String getReglas() {
         return reglas;
     }

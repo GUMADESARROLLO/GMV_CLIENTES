@@ -11,10 +11,19 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tiendaumk.MyApplication;
+import com.tiendaumk.model.Articulos_facturado;
+import com.tiendaumk.model.DynamicData;
 import com.tiendaumk.model.ProductItem;
 
 import java.io.InputStream;
@@ -33,6 +42,8 @@ public class Utiles {
     public static int isvarification =-1;
     public static boolean isrates =false;
     public static List<ProductItem> productItems =new ArrayList<>();
+    public static List<DynamicData> dynamicDataList = new ArrayList<>();
+
 
     public static String getDate() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -45,6 +56,14 @@ public class Utiles {
             int flags = view.getSystemUiVisibility();
             flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
             view.setSystemUiVisibility(flags);
+        }
+    }
+    public static void displayImageOriginal(Context ctx, ImageView img, @DrawableRes int drawable) {
+        try {
+            Glide.with(ctx).load(drawable)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(img);
+        } catch (Exception e) {
         }
     }
     public static void changeMenuIconColor(Menu menu, @ColorInt int color) {
@@ -79,7 +98,14 @@ public class Utiles {
             return false;
         }
     }
-
+    public static void setSystemBarColor(Activity act, @ColorRes int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = act.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(act.getResources().getColor(color));
+        }
+    }
     public static void copyStream(InputStream is, OutputStream os)
     {
         final int buffer_size=1024;

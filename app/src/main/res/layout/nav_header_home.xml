@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/rounded_green"
     android:gravity="center"
     android:orientation="horizontal"
@@ -40,7 +41,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/colorWhite"
             android:fontFamily="@font/coresans_cr_extrabold"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/txt_mob"
@@ -56,22 +57,25 @@
             />
         <TextView
             android:id="@+id/txt_email"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:textSize="12dp"
             android:padding="2dp"
             android:text="0000"
             android:textColor="@color/colorWhite" />
         <TextView
             android:id="@+id/txt_cod_client"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:textSize="12dp"
             android:padding="2dp"
             android:text="0000"
             android:textColor="@color/colorWhite" />
 
     </LinearLayout>
+
+
+
+
+
 </LinearLayout>

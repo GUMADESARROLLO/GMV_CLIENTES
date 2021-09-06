@@ -1,5 +1,6 @@
 package com.tiendaumk.adepter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -9,9 +10,11 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -33,6 +36,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,8 +83,8 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
 
 
 
-
-        holder.txtStock.setText("Stock: " + datum.getStock());
+        String _stock = String.format(Locale.ENGLISH, "%1$,.0f", Double.parseDouble(String.valueOf(datum.getStock())));
+        holder.txtStock.setText("Stock: " + _stock);
         Glide.with(mContext).load(datum.getProductImage()).thumbnail(Glide.with(mContext).load(R.drawable.ezgifresize)).into(holder.imgIcon);
         holder.txtTitle.setText("" + datum.getProductName());
         holder.imgIcon.setOnClickListener(new View.OnClickListener() {
@@ -109,14 +113,21 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
                 if (datum.getmDiscount() > 0) {
                     double res = (Double.parseDouble(datum.getPrice().get(position).getProductPrice()) / 100.0f) * datum.getmDiscount();
                     res = Double.parseDouble(datum.getPrice().get(position).getProductPrice()) - res;
-                    holder.txtItemOffer.setText(sessionManager.getStringData(currncy) + datum.getPrice().get(position).getProductPrice());
+
+                    String _price = String.format(Locale.ENGLISH, "%1$,.2f", Double.parseDouble(datum.getPrice().get(0).getProductPrice()));
+
+                    holder.txtItemOffer.setText(sessionManager.getStringData(currncy) + " " + _price);
                     holder.txtItemOffer.setPaintFlags(holder.txtItemOffer.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    holder.txtPrice.setText(sessionManager.getStringData(currncy) + new DecimalFormat("##.##").format(res));
+
+                    holder.txtPrice.setText(sessionManager.getStringData(currncy) + new DecimalFormat("###,###.##").format(res));
 
                     holder.txtItemOffer.setText(sessionManager.getStringData(currncy) + datum.getPrice().get(position).getProductPrice());
                 } else {
                     holder.txtItemOffer.setVisibility(View.GONE);
-                    holder.txtPrice.setText(sessionManager.getStringData(currncy) + datum.getPrice().get(position).getProductPrice());
+
+                    double res = (Double.parseDouble(datum.getPrice().get(position).getProductPrice()) );
+
+                    holder.txtPrice.setText(sessionManager.getStringData(currncy) + " " +  new DecimalFormat("###,###.##").format(res));
                 }
                 setJoinPlayrList(holder.lvlSubitem, datum, datum.getPrice().get(position));
             }
@@ -185,6 +196,7 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
         myCart.setWeight(price.getProductType());
         myCart.setCost(price.getProductPrice());
         myCart.setDiscount(datum.getmDiscount());
+        myCart.setCat(datum.getmCategoria());
 
         int qrt = helper.getCard(myCart.getPid(), myCart.getCost());
         if (qrt != -1) {
@@ -218,6 +230,7 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
                     myCart.setQty(String.valueOf(count[0]));
                     myCart.setReglas(datum.getmbonificado());
                     myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
+                    myCart.setCat(datum.getmCategoria());
                     helper.insertData(myCart);
                 }
                 itemListFragment.updateItem();
@@ -240,9 +253,67 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
                     myCart.setReglas(datum.getmbonificado());
                     myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
                     myCart.setIva(datum.getmIva());
+                    myCart.setCat(datum.getmCategoria());
                     Log.e("INsert", "--> " + helper.insertData(myCart));
                     itemListFragment.updateItem();
                 }
+            }
+        });
+
+        img_plus.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+
+
+                final Dialog dialog = new Dialog(mContext);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+                dialog.setContentView(R.layout.dialog_input_cant);
+                dialog.setCancelable(true);
+
+                LinearLayout lyt = dialog.findViewById(R.id.lyt);
+                TextView txt_title = dialog.findViewById(R.id.title);
+                EditText txt_msg = dialog.findViewById(R.id.ed_titulo);
+
+                txt_title.setText("Cantidad Personalizada");
+                //  txt_msg.setText(strMsg);
+                lyt.setBackgroundColor(mContext.getResources().getColor(R.color.light_green_400));;
+
+
+
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                lp.copyFrom(dialog.getWindow().getAttributes());
+                lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+
+                (dialog.findViewById(R.id.bt_close)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        lvl_addcart.setVisibility(View.GONE);
+                        lvl_addremove.setVisibility(View.VISIBLE);
+                        count[0] = Integer.parseInt(txt_msg.getText().toString());
+
+
+                        txtcount.setText("" + count[0]);
+                        myCart.setQty(String.valueOf(count[0]));
+                        myCart.setReglas(datum.getmbonificado());
+                        myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
+                        myCart.setIva(datum.getmIva());
+                        myCart.setCat(datum.getmCategoria());
+                        Log.e("INsert", "--> " + helper.insertData(myCart));
+                        itemListFragment.updateItem();
+                        if (itemListFragment != null)
+                            itemListFragment.updateItem();
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+                dialog.getWindow().setAttributes(lp);
+
+
+                return false;
             }
         });
         lvl_addcart.setOnClickListener(new View.OnClickListener() {
@@ -261,6 +332,7 @@ public class ItemAdp extends RecyclerView.Adapter<ItemAdp.ViewHolder> {
                     myCart.setReglas(datum.getmbonificado());
                     myCart.setBonifi(getBonificado(datum.getmbonificado(),count[0]));
                     myCart.setIva(datum.getmIva());
+                    myCart.setCat(datum.getmCategoria());
                     Log.e("INsert", "--> " + helper.insertData(myCart));
                     itemListFragment.updateItem();
                 }

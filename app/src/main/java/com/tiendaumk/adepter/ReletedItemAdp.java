@@ -73,7 +73,10 @@ public class ReletedItemAdp extends RecyclerView.Adapter<ReletedItemAdp.ViewHold
         if (datum.getmDiscount() > 0) {
             double  res = (Double.parseDouble(datum.getPrice().get(0).getProductPrice()) / 100.0f)* datum.getmDiscount();
             res = Double.parseDouble(datum.getPrice().get(0).getProductPrice()) - res;
-            holder.priceoofer.setText(sessionManager.getStringData(currncy)  + datum.getPrice().get(0).getProductPrice());
+
+            String _price = String.format(Locale.ENGLISH, "%1$,.2f", Double.parseDouble(datum.getPrice().get(0).getProductPrice()));
+            holder.priceoofer.setText(sessionManager.getStringData(currncy)  + _price);
+            
             holder.txtPrice.setText(sessionManager.getStringData(currncy)  + new DecimalFormat("###,###.##").format(res));
 
             holder.lvlOffer.setVisibility(View.VISIBLE);
@@ -114,7 +117,7 @@ public class ReletedItemAdp extends RecyclerView.Adapter<ReletedItemAdp.ViewHold
                     myCart.setReglas(datum.getmbonificado());
                     myCart.setBonifi(getBonificado(datum.getmbonificado(),1));
                     myCart.setIva(datum.getmIva());
-
+                    myCart.setCat(datum.getmCategoria());
                     helper.insertData(myCart);
                     holder.lvlCardbg.setBackground(mContext.getResources().getDrawable(R.drawable.bg_red_shape));
                     holder.imgCard.setImageDrawable(mContext.getDrawable(R.drawable.ic_minus_rounded));

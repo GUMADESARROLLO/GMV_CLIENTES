@@ -7607,7 +7607,6 @@ androidx.transition.ChangeScroll
 com.tiendaumk.R$color
 com.tiendaumk.model.Moras:
     public java.lang.String getVencido()
-    java.lang.String Vencidos
 androidx.appcompat.widget.ActionMenuView$LayoutParams:
     void <init>(int,int,boolean)
 androidx.core.text.util.LinkifyCompat$LinkifyMask
@@ -15056,15 +15055,6 @@ com.tiendaumk.model.ProductNoFacturado:
     public java.lang.String getProduct_description()
     public java.lang.String getCurrency_code()
     public double getTax()
-    private java.lang.String category_id
-    private java.lang.String category_name
-    private java.lang.String product_status
-    private java.lang.String product_description
-    private java.lang.String currency_code
-    private java.lang.String product_bonificado
-    private java.lang.String product_lotes
-    private java.lang.String ISPROMO
-    private double tax
 com.google.android.gms.common.server.converter.zac
 com.onesignal.ActivityLifecycleHandler:
     void <init>()
@@ -22633,18 +22623,6 @@ com.tiendaumk.model.Moras:
     public java.lang.String getDias120()
     public java.lang.String getMas120()
     public java.lang.String getFACT_PEND()
-    public java.lang.String NoVencidos
-    public java.lang.String Dias30
-    public java.lang.String Dias60
-    public java.lang.String Dias90
-    public java.lang.String Dias120
-    public java.lang.String Mas120
-    public java.lang.String FACT_PEND
-    public java.lang.String NombreCliente
-    public java.lang.String Limite
-    public java.lang.String Saldo
-    public java.lang.String Disponible
-    public java.lang.String Moroso
 com.google.android.material.internal.ThemeEnforcement:
     public static varargs androidx.appcompat.widget.TintTypedArray obtainTintedStyledAttributes(android.content.Context,android.util.AttributeSet,int[],int,int,int[])
     public static varargs boolean isCustomTextAppearanceValid(android.content.Context,android.util.AttributeSet,int[],int,int,int[])
@@ -27641,13 +27619,6 @@ com.tiendaumk.model.Factura_lineas:
     public java.lang.String getCANTIDAD()
     public java.lang.String getVENTA()
     public java.lang.String getFECHA()
-    public java.lang.String ARTICULO
-    public java.lang.String DESCRIPCION
-    public java.lang.String CANTIDAD
-    public java.lang.String VENTA
-    public java.lang.String FECHA
-    public java.lang.String IMAGEN
-    public java.lang.String OBSERVACIONES
 com.google.android.gms.common.api.ResultTransform
 com.crashlytics.android.core.CrashlyticsController$8:
     public java.lang.Void call()
@@ -30218,11 +30189,6 @@ com.tiendaumk.model.ProductNoFacturado:
     public double getProduct_price()
     public java.lang.String getProduct_image()
     public double getProduct_quantity()
-    public java.lang.String product_id
-    public java.lang.String product_name
-    public java.lang.String product_image
-    public java.lang.String product_und
-    public java.lang.String CALIFICATIVO
 com.google.android.gms.internal.measurement.zzhw:
     public static com.google.android.gms.internal.measurement.zzhw zza()
     public static com.google.android.gms.internal.measurement.zzhw zza(com.google.android.gms.internal.measurement.zzhw,com.google.android.gms.internal.measurement.zzhw)

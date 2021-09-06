@@ -32,6 +32,7 @@ import com.google.gson.JsonParser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,7 +152,9 @@ public class MyOrderFragment extends Fragment implements GetResult.MyListener {
                 TextView txt_total = view.findViewById(R.id.txt_total);
                 txt_orderid.setText(orderData.get(i).getId());
                 txt_date.setText(orderData.get(i).getOrderDate());
-                txt_total.setText(sessionManager.getStringData(currncy) + orderData.get(i).getTotalamt());
+
+                double res = (Double.parseDouble(orderData.get(i).getTotalamt()) );
+                txt_total.setText(sessionManager.getStringData(currncy) + new DecimalFormat(" ###,###.##").format(res));
                 if (orderData.get(i).getStatus().equalsIgnoreCase("completado")) {
                     txt_status.setTextColor(getResources().getColor(R.color.colorPrimary));
                 }
