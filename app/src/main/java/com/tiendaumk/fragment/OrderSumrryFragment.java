@@ -210,6 +210,8 @@ public class OrderSumrryFragment extends Fragment implements GetResult.MyListene
         txtlblTitulo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 final Dialog dialog = new Dialog(getContext());
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
                 dialog.setContentView(R.layout.dialog_cupon);
@@ -247,8 +249,11 @@ public class OrderSumrryFragment extends Fragment implements GetResult.MyListene
                     }
                 });
 
-                dialog.show();
-                dialog.getWindow().setAttributes(lp);
+                if (txtCupon.getText().equals(" ")){
+                    dialog.show();
+                    dialog.getWindow().setAttributes(lp);
+                }
+
             }
         });
         return view;

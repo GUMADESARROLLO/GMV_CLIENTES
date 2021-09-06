@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/GUMA/PROYECTOS/GMV_CLIENT/app/src/main/res/layout/activity_main.xml" value="0.36770833333333336" />
+        <entry key="..\:/GUMA/PROYECTOS/GMV_CLIENT/app/src/main/res/layout/activity_order_details.xml" value="0.36770833333333336" />
         <entry key="..\:/GUMA/PROYECTOS/GMV_CLIENT/app/src/main/res/layout/fragment_home.xml" value="0.2617753623188406" />
+        <entry key="..\:/GUMA/PROYECTOS/GMV_CLIENT/app/src/main/res/layout/fragment_order_sumrry.xml" value="0.36770833333333336" />
       </map>
     </option>
   </component>
